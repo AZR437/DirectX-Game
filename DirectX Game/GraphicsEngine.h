@@ -17,28 +17,6 @@ class PixelShader;
 
 class GraphicsEngine
 {
-	public:
-		GraphicsEngine();
-		//Initialize graphics engine & Dx11 Device
-		bool Init();
-		//Release all resources loaded
-		bool Release();
-		~GraphicsEngine();
-	public:
-		SwapChain* CreateSwapChain();
-		DeviceContext* GetImmediateDeviceContext();
-		VertexBuffer* CreateVertexBuffer();
-		ConstantBuffer* CreateConstantBuffer();
-		VertexShader* CreateVertexShaders(const void* shaderByteCode, size_t byteCodeSize);
-		PixelShader* CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize);
-	public:
-		bool CompileVertexShaders(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
-		bool CompilePixelShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
-		void ReleaseCompiledShader();
-
-		
-	public:
-		static GraphicsEngine* GetInstance();
 	private:
 		DeviceContext* immDeviceContext;
 	private:
@@ -54,12 +32,42 @@ class GraphicsEngine
 		ID3DBlob* psBlob;
 		ID3D11VertexShader* vertexShader;
 		ID3D11PixelShader* pixelShader;
+	public:
+		
+		//Initialize graphics engine & Dx11 Device
+		bool InitDX();
+		//Release all resources loaded
+		bool Release();
+		
+	public:
+		SwapChain* CreateSwapChain();
+		DeviceContext* GetImmediateDeviceContext();
+		VertexBuffer* CreateVertexBuffer();
+		ConstantBuffer* CreateConstantBuffer();
+		VertexShader* CreateVertexShaders(const void* shaderByteCode, size_t byteCodeSize);
+		PixelShader* CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize);
+	public:
+		bool CompileVertexShaders(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
+		bool CompilePixelShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
+		void ReleaseCompiledShader();
+
+		
+	public:
+		static GraphicsEngine* GetInstance();
+		static void Initialize();
+		static void Destroy();
+
 	private:
 		friend class SwapChain;
 		friend class VertexBuffer;
 		friend class ConstantBuffer;
 		friend class VertexShader;
 		friend class PixelShader;
-		
+	private:
+		GraphicsEngine();
+		GraphicsEngine(GraphicsEngine const&);
+		GraphicsEngine& operator = (GraphicsEngine const&) {};
+		static GraphicsEngine* sharedInstance;
+		~GraphicsEngine();
 };
 

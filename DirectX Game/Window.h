@@ -1,5 +1,6 @@
 #pragma once
 #include "Windows.h"
+#include "EngineTime.h"
 
 class Window
 {
@@ -24,6 +25,7 @@ class Window
 		virtual void OnDestroy();
 	protected:
 		HWND hwnd;
+		EngineTime engineTime;
 		bool isRunning;
 };
 

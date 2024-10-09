@@ -4,28 +4,21 @@ Triangles::Triangles()
 {
 }
 
-Triangles::Triangles(float x, float y, float scale)
-{
-	this->position.x = x;
-	this->position.y = y;
-	this->scale = scale;
-}
 
 void Triangles::Load()
 {
 	vertex list[] =
 	{
 		//X - Y - Z
-		{-0.5f,-0.5f,0.0f,    -0.32f,-0.11f,0.0f,   1,0,0,  0,0,1 }, // POS1
-		{0.f,0.5f,0.0f,     -0.11f,0.78f,0.0f,    1,0,0,  0,0,1 }, // POS2
-		{0.5f,-0.5f,0.0f,      0.88f,0.77f,0.0f,    1,0,0,  0,0,1 }
+		{Vector3D(-0.5f,-0.5f,0.0f),    Vector3D(-0.32f,-0.11f,0.0f),   Vector3D(1,0,0),  Vector3D(0,0,1) }, // POS1
+		{Vector3D(0.f,0.5f,0.0f),    Vector3D(-0.11f,0.78f,0.0f),    Vector3D(1,0,0),  Vector3D(0,0,1) }, // POS2
+		{Vector3D(0.5f,-0.5f,0.0f),     Vector3D(0.88f,0.77f,0.0f),    Vector3D(1,0,0), Vector3D(0,0,1) }
 	};
 	UINT listSize = ARRAYSIZE(list);
 	this->vertexBuffer = GraphicsEngine::GetInstance()->CreateVertexBuffer();
 
 
-	this->Translate(list, listSize);
-	this->Scale(list, listSize);
+
 
 	void* shaderByteCode = nullptr;
 	size_t shaderSize = 0;
@@ -53,13 +46,9 @@ void Triangles::Load()
 
 void Triangles::Draw()
 {
-	unsigned long newTime = 0;
-	if (this->oldTime)
-		newTime = ::GetTickCount() - this->oldTime;
-	this->deltaTime = newTime / 1000.0f;
-	this->oldTime = ::GetTickCount();
+	this->deltaTime = EngineTime::GetDeltaTime();
 
-	this->angle += 1.57f * this->deltaTime;
+	this->angle += 1.57f * this->deltaTime ;
 	constant cc;
 	cc.angle = this->angle;
 
@@ -91,20 +80,3 @@ Triangles::~Triangles()
 }
 
 
-void Triangles::Translate(vertex list[3], UINT listSize)
-{
-	for (UINT i = 0; i < listSize; i++)
-	{
-		list[i].position.x += this->position.x;
-		list[i].position.y += this->position.y;
-	}
-}
-
-void Triangles::Scale(vertex list[3], UINT listSize)
-{
-	for (UINT i = 0; i < listSize; i++)
-	{
-		list[i].position.x *= this->scale;
-		list[i].position.y *= this->scale;
-	}
-}

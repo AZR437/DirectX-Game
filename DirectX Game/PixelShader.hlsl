@@ -8,6 +8,9 @@ struct PS_INPUT
 
 cbuffer constant : register(b0)
 {
+    row_major float4x4 world;
+    row_major float4x4 view;
+    row_major float4x4 proj;
     float angle;
 };
 

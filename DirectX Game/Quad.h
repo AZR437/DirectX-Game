@@ -4,29 +4,31 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "Constants.h"
+#include "EngineTime.h"
+
 class Quad
 {
 	private:
-		vec3 position;
-		float scale;
 		VertexBuffer* vertexBuffer;
 		ConstantBuffer* constantBuffer;
 		VertexShader* vertexShader;
 		PixelShader* pixelShader;
 		unsigned long oldTime = 0;
 		float deltaTime = 0;
+		float deltaPos = 0;
+		float multiplier = 1.0f;
 		float angle = 0;
-		vertex list[];
+		
 	public:
 		Quad();
-		Quad(float x, float y, float scale);
+		Quad(float width, float height);
 		void Load();
 		void Draw();
 		void Release();
 		~Quad();
+	public:
+		void updatePosition();
 	private:
-		void Translate(vertex list[4], UINT listSize);
-		void Scale(vertex list[4], UINT listSize);
-
+		float windowWidth, windowHeight;
 };
 

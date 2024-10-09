@@ -1,14 +1,12 @@
 #pragma once
-struct vec3
-{
-	float x, y, z;
-};
+#include "Vector3D.h"
+#include "Matrix4x4.h"
 struct vertex
 {
-	vec3 position;
-	vec3 position1;
-	vec3 colour;
-	vec3 colour1;
+	Vector3D position;
+	Vector3D position1;
+	Vector3D colour;
+	Vector3D colour1;
 
 };
 struct transform2D
@@ -23,6 +21,9 @@ struct transformList2D
 __declspec(align(16))
 struct constant
 {
+	Matrix4x4 world;
+	Matrix4x4 view;
+	Matrix4x4 projection;
 	float angle;
 };
 enum PrimitveType

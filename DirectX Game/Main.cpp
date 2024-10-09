@@ -2,13 +2,15 @@
 
 int main()
 {
-	AppWindow app;
-	if (app.Init())
+	AppWindow::Initialize();
+	AppWindow* appWindow = (AppWindow*)AppWindow::GetInstance();
+	appWindow->Init();
+	
+	while (appWindow->IsRunning())
 	{
-		while (app.IsRunning())
-		{
-			app.Broadcast();
-		}
+		appWindow->Broadcast();
 	}
+	
+	
 	return 0;
 }

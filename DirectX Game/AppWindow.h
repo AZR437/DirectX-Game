@@ -5,15 +5,13 @@
 #include "SwapChain.h"
 #include "DeviceContext.h"
 #include "PrimitiveLoader.h"
-#include "Quad.h"
-#include "Triangles.h"
 #include "Constants.h"
 
 class AppWindow: public Window
 {
 	public:
-		AppWindow();
-		~AppWindow();
+		static void Initialize();
+		static AppWindow* GetInstance();
 
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
@@ -22,8 +20,12 @@ class AppWindow: public Window
 	private:
 		SwapChain* swapChain;
 		PrimitiveLoader* primitiveLoader;
-		std::vector<Quad> quadList;
-		std::vector<Triangles> triList;
+	private:
+		AppWindow();
+		AppWindow(AppWindow const&);
+		AppWindow& operator = (AppWindow const&) {};
+		static AppWindow* sharedInstance;
+		~AppWindow();
 
 		
 		

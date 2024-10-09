@@ -68,6 +68,8 @@ bool Window::Init()
 	::ShowWindow(hwnd, SW_SHOW);
 	::UpdateWindow(hwnd);
 
+	//initialize EngineTime
+	EngineTime::Initialize();
 
 	//setting running flag to true
 	this->isRunning = true;
@@ -76,17 +78,16 @@ bool Window::Init()
 
 bool Window::Broadcast()
 {
-	MSG msg;
+	EngineTime::LogFrameStart();
 	this->OnUpdate();
+	MSG msg;
 	while(::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-
-	
-
-	Sleep(0);
+	Sleep(1);
+	EngineTime::LogFrameEnd();
 
 	return true;
 }

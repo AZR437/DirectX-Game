@@ -15,7 +15,10 @@ struct VS_OUTPUT
 
 cbuffer constant : register(b0)
 {
-     float angle;
+    row_major float4x4 world;
+    row_major float4x4 view;
+    row_major float4x4 proj;
+    float angle;
 };
 
 
@@ -23,7 +26,14 @@ VS_OUTPUT vsmain(VS_INPUT input)
 {
     VS_OUTPUT output = (VS_OUTPUT) 0;
 	
-    output.position = lerp(input.position, input.position, (sin(angle) + 1.0f) / 2.0f);
+    //output.position = lerp(input.position, input.position1, (sin(angle) + 1.0f) / 2.0f);
+    //World Space
+    output.position = mul(input.position, world);
+    //View  Space
+    output.position = mul(input.position, view);
+    //Screen Space
+    output.position = mul(input.position, proj);
+    
     output.colour = input.colour;
     output.colour1 = input.colour1; 
 
