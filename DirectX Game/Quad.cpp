@@ -92,13 +92,13 @@ void Quad::updatePosition()
 	constant cc;
 	cc.angle = this->angle;
 
-	//this->deltaPos += this->deltaTime * 1.0f;
-	//if (this->deltaPos > 1.0f)
-	//{
-	//	this->deltaPos = 0;
-	//}
+	this->deltaPos += this->deltaTime * 1.0f;
+	if (this->deltaPos > 1.0f)
+	{
+		this->deltaPos = 0;
+	}
 	
-	/*cc.world.SetTranslate(Vector3D(0, 1, 0));*/
+	cc.world.SetTranslate(Vector3D(0, 1, 0));
 	cc.view.SetIdentity();
 	cc.projection.SetOrthoPM(this->windowWidth/400.0f, this->windowHeight/400.0f, -4.0f, 4.0f);
 
