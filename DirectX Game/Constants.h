@@ -1,21 +1,19 @@
 #pragma once
 #include "Vector3D.h"
 #include "Matrix4x4.h"
+#define PI 3.14159f
 struct vertex
 {
 	Vector3D position;
-	Vector3D position1;
 	Vector3D colour;
 	Vector3D colour1;
 
 };
-struct transform2D
+struct Transforms
 {
-	float x, y, scale;
-};
-struct transformList2D
-{
-	transform2D transform;
+	Vector3D scale;
+	Vector3D rotation;
+	Vector3D position;
 };
 
 __declspec(align(16))
@@ -29,5 +27,6 @@ struct constant
 enum PrimitveType
 {
 	QUAD = 0,
-	TRI
+	TRI,
+	CUBE
 };

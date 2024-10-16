@@ -91,6 +91,11 @@ VertexBuffer* GraphicsEngine::CreateVertexBuffer()
 	return new VertexBuffer();
 }
 
+IndexBuffer* GraphicsEngine::CreateIndexBuffer()
+{
+	return new IndexBuffer();
+}
+
 ConstantBuffer* GraphicsEngine::CreateConstantBuffer()
 {
 	return new ConstantBuffer();

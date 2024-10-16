@@ -49,6 +49,12 @@
     <ClCompile Include="Matrix4x4.cpp">
       <Filter>GameEngine\Math</Filter>
     </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>GameEngine\GraphicsEngine\IndexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>GameEngine\Primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -99,6 +105,12 @@
     <ClInclude Include="Matrix4x4.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>GameEngine\GraphicsEngine\IndexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>GameEngine\Primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
@@ -142,6 +154,9 @@
     </Filter>
     <Filter Include="GameEngine\Math">
       <UniqueIdentifier>{672c259d-7aa0-492a-9bce-c913ab159572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\IndexBuffer">
+      <UniqueIdentifier>{93bf7e30-35b3-4546-843c-de19a29014b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

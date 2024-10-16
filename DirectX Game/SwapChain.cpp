@@ -22,7 +22,7 @@ bool SwapChain::Init(HWND hwnd, UINT width, UINT height)
 	desc.Windowed = TRUE;
 
 
-	HRESULT hRes =GraphicsEngine::GetInstance()->dxgiFactory->CreateSwapChain(device, &desc, &this->swapChain);
+	HRESULT hRes = GraphicsEngine::GetInstance()->dxgiFactory->CreateSwapChain(device, &desc, &this->swapChain);
 
 	if (FAILED(hRes))
 	{
@@ -45,6 +45,30 @@ bool SwapChain::Init(HWND hwnd, UINT width, UINT height)
 	{
 		return false;
 	}
+	D3D11_TEXTURE2D_DESC textureDesc = {};
+	textureDesc.Width = width;
+	textureDesc.Height = height;
+	textureDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	textureDesc.Usage = D3D11_USAGE_DEFAULT;
+	textureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	textureDesc.MipLevels = 1;
+	textureDesc.SampleDesc.Count = 1;
+	textureDesc.SampleDesc.Quality = 0;
+	textureDesc.MiscFlags = 0;
+	textureDesc.ArraySize = 1;
+	textureDesc.CPUAccessFlags = 0;
+	
+	hRes = device->CreateTexture2D(&textureDesc, NULL, &buffer);
+	if (FAILED(hRes))
+	{
+		return false;
+	}
+	hRes = device->CreateDepthStencilView(buffer, NULL, &this->depthView);
+	if (FAILED(hRes))
+	{
+		return false;
+	}
+	buffer->Release();
 	return true;
 }
 bool SwapChain::Present(bool vSync)

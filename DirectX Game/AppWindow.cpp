@@ -41,13 +41,9 @@ void AppWindow::OnCreate()
 
 
 	this->primitiveLoader = new PrimitiveLoader(width, height);
-	transformList2D quadTransforms[] =
-	{
-		{0.0f, 0.0f, 2.0f},
-
-	};
-
-	this->primitiveLoader->LoadPrimitive(QUAD, 1, quadTransforms);
+	this->primitiveLoader->LoadPrimitives(CUBE, 1);
+	this->primitiveLoader->LoadPrimitives(QUAD, 1);
+	
 
 }
 void AppWindow::OnUpdate()

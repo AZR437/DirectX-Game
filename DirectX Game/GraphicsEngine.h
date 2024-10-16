@@ -7,6 +7,7 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
+#include "IndexBuffer.h"
 
 class SwapChain;
 class DeviceContext;
@@ -14,6 +15,7 @@ class VertexBuffer;
 class ConstantBuffer;
 class VertexShader;
 class PixelShader;
+class IndexBuffer;
 
 class GraphicsEngine
 {
@@ -43,6 +45,7 @@ class GraphicsEngine
 		SwapChain* CreateSwapChain();
 		DeviceContext* GetImmediateDeviceContext();
 		VertexBuffer* CreateVertexBuffer();
+		IndexBuffer* CreateIndexBuffer();
 		ConstantBuffer* CreateConstantBuffer();
 		VertexShader* CreateVertexShaders(const void* shaderByteCode, size_t byteCodeSize);
 		PixelShader* CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize);
@@ -63,6 +66,7 @@ class GraphicsEngine
 		friend class ConstantBuffer;
 		friend class VertexShader;
 		friend class PixelShader;
+		friend class IndexBuffer;
 	private:
 		GraphicsEngine();
 		GraphicsEngine(GraphicsEngine const&);

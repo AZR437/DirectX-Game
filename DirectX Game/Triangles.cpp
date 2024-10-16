@@ -10,9 +10,9 @@ void Triangles::Load()
 	vertex list[] =
 	{
 		//X - Y - Z
-		{Vector3D(-0.5f,-0.5f,0.0f),    Vector3D(-0.32f,-0.11f,0.0f),   Vector3D(1,0,0),  Vector3D(0,0,1) }, // POS1
-		{Vector3D(0.f,0.5f,0.0f),    Vector3D(-0.11f,0.78f,0.0f),    Vector3D(1,0,0),  Vector3D(0,0,1) }, // POS2
-		{Vector3D(0.5f,-0.5f,0.0f),     Vector3D(0.88f,0.77f,0.0f),    Vector3D(1,0,0), Vector3D(0,0,1) }
+		{Vector3D(-0.5f,-0.5f,0.0f), Vector3D(1,0,0),  Vector3D(0,0,1) }, // POS1
+		{Vector3D(0.f,0.5f,0.0f),    Vector3D(1,0,0),  Vector3D(0,0,1) }, // POS2
+		{Vector3D(0.5f,-0.5f,0.0f),  Vector3D(1,0,0), Vector3D(0,0,1) }
 	};
 	UINT listSize = ARRAYSIZE(list);
 	this->vertexBuffer = GraphicsEngine::GetInstance()->CreateVertexBuffer();

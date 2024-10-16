@@ -7,7 +7,8 @@ void DeviceContext::ClearRenderTargetColor(SwapChain* swapChain, float r, float 
 {
 	FLOAT clearColor[] = { r,g,b,a };
 	this->deviceContext->ClearRenderTargetView(swapChain->renderTargetView ,clearColor);
-	this->deviceContext->OMSetRenderTargets(1,&swapChain->renderTargetView, NULL);
+	this->deviceContext->ClearDepthStencilView(swapChain->depthView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+	this->deviceContext->OMSetRenderTargets(1,&swapChain->renderTargetView, swapChain->depthView);
 	
 }
 void DeviceContext::SetVertexBuffer(VertexBuffer* vertexBuffer)
@@ -18,6 +19,10 @@ void DeviceContext::SetVertexBuffer(VertexBuffer* vertexBuffer)
 
 	this->deviceContext->IASetInputLayout(vertexBuffer->layout);
 	
+}
+void DeviceContext::SetIndexBuffer(IndexBuffer* indexBuffer)
+{
+	this->deviceContext->IASetIndexBuffer(indexBuffer->buffer, DXGI_FORMAT_R32_UINT, 0);
 }
 void DeviceContext::SetConstantBuffer(VertexShader* vertexShader, ConstantBuffer* constantBuffer)
 {
@@ -34,6 +39,12 @@ void DeviceContext::DrawTriangleList(UINT vertexCount, UINT vertexIndexStart)
 
 	this->deviceContext->Draw(vertexCount, vertexIndexStart);
 }
+void DeviceContext::DrawIndexedTriangleList(UINT indexCount, UINT vertexIndexStart, UINT indexStartLocation)
+{
+	this->deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	this->deviceContext->DrawIndexed(indexCount, indexStartLocation, vertexIndexStart);
+}
+
 void DeviceContext::DrawTriangleStrip(UINT vertexCount, UINT vertexIndexStart)
 {
 	this->deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
