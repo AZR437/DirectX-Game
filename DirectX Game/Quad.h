@@ -19,14 +19,16 @@ class Quad
 		float deltaScale = 0;
 		float multiplier = 1.0f;
 		float angle = 0;
+		float rotX = 0;
+		float rotY = 0;
+		float rotZ = 0;
 		Vector3D scale;
 		Vector3D position;
-		Vector3D rotation;
 		
 	public:
 		Quad();
 		Quad(float width, float height);
-		Quad(float width, float height, Vector3D scale, Vector3D position, Vector3D rotation);
+		Quad(float width, float height, Transforms transformMatrices);
 		void Load();
 		void Draw();
 		void Release();

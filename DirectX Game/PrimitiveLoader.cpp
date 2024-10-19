@@ -25,6 +25,25 @@ void PrimitiveLoader::LoadPrimitives(PrimitveType primitiveType, int spawnNumber
 	}
 }
 
+void PrimitiveLoader::LoadPrimitives(PrimitveType primitiveType, int spawnNumber, Transforms transformMatrices[])
+{
+	switch (primitiveType)
+	{
+	case QUAD:
+		//this->LoadQuads(spawnNumber, transformList);
+		//this->LoadQuads(this->windowWidth, this->windowHeight);
+		break;
+	case TRI:
+		//this->LoadTris(spawnNumber, transformList);
+		break;
+	case CUBE:
+		this->LoadCubes(this->windowWidth, this->windowHeight, spawnNumber, transformMatrices);
+		break;
+	default:
+		break;
+	}
+}
+
 void PrimitiveLoader::DrawPrimitives()
 {
 	if (!this->quadList.empty())
@@ -48,7 +67,7 @@ void PrimitiveLoader::DrawPrimitives()
 		for (int i = 0; i < this->cubeList.size(); i++)
 		{
 			this->cubeList[i].Draw();
-			std::cout << this->cubeList.size() << std::endl;
+			
 		}
 	}
 }
@@ -83,15 +102,15 @@ void PrimitiveLoader::ReleasePrimitives()
 	delete this;
 }
 
-void PrimitiveLoader::LoadQuads(int spawnNumber)
+void PrimitiveLoader::LoadQuads(float windowWidth, float windowHeight, int spawnNumber, Transforms transfomMatrices[])
 {
-	/*for (int i = 0; i < spawnNumber; i++)
+	for (int i = 0; i < spawnNumber; i++)
 	{
 
-		this->quadList.push_back(Quad(transformList[i].transform.x, transformList[i].transform.y, transformList[i].transform.scale));
+		this->quadList.push_back(Quad(windowWidth,windowHeight,transfomMatrices[i]));
 		this->quadList[i].Load();
 
-	}*/
+	}
 }
 
 void PrimitiveLoader::LoadQuads(float windowWidth, float windowHeight)
@@ -115,9 +134,13 @@ void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight)
 	this->cubeList[0].Load();
 }
 
-void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight, Transforms transfomMatrices)
+void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight, int spawnNumber, Transforms transformMatrices[])
 {
-
+	for (int i = 0; i < spawnNumber; i++)
+	{
+		this->cubeList.push_back(Cube(windowWidth, windowHeight, transformMatrices[i]));
+		this->cubeList[i].Load();
+	}
 }
 
 void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight, int spawnNumber)
@@ -140,6 +163,11 @@ void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight, int spawn
 
 PrimitiveLoader::~PrimitiveLoader()
 {
+}
+
+std::vector<Cube> PrimitiveLoader::GetCubeList()
+{
+	return this->cubeList;
 }
 
 Vector3D PrimitiveLoader::RandomPos()

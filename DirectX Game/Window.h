@@ -20,9 +20,11 @@ class Window
 
 
 		//EVENTS
-		virtual void OnCreate();
-		virtual void OnUpdate();
+		virtual void OnCreate() ;
+		virtual void OnUpdate() ;
 		virtual void OnDestroy();
+		virtual void OnFocus() = 0;
+		virtual void OnKillFocus() =0;
 	protected:
 		HWND hwnd;
 		EngineTime engineTime;

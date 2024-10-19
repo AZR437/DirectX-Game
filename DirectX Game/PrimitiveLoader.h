@@ -13,18 +13,21 @@ class PrimitiveLoader
 	public:
 		PrimitiveLoader(float width, float height);
 		void LoadPrimitives(PrimitveType primitiveType, int spawnNumber);
+		void LoadPrimitives(PrimitveType primitiveType, int spawnNumber, Transforms transformMatrices[]);
 		void DrawPrimitives();
 		void ReleasePrimitives();
 		~PrimitiveLoader();
+public:
+	std::vector<Cube> GetCubeList();
 	private:
 		Vector3D RandomPos();
 		Vector3D RandomRot();
 		Vector3D RandomScale();
-		void LoadQuads(int spawnNumber);
+		void LoadQuads(float windowWidth, float windowHeight, int spawnNumber, Transforms transfomMatrices[]);
 		void LoadQuads(float windowWidth, float windowHeight);
 		void LoadTris(int spawnNumber);
 		void LoadCubes(float windowWidth, float windowHeight);
-		void LoadCubes(float windowWidth, float windowHeight, Transforms transfomMatrices);
+		void LoadCubes(float windowWidth, float windowHeight,int spawnNumber, Transforms transfomMatrices[]);
 		void LoadCubes(float windowWidth, float windowHeight, int spawnNumber);
 
 	private:

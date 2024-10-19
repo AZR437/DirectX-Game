@@ -12,15 +12,16 @@ Quad::Quad(float width, float height)
 	this->windowHeight = height;
 }
 
-Quad::Quad(float width, float height, Vector3D scale, Vector3D position, Vector3D rotation)
+Quad::Quad(float width, float height, Transforms transformMatrices)
 {
 	this->windowWidth = width;
 	this->windowHeight = height;
 	this->scale = scale;
 	this->position = position;
-	this->rotation = rotation;
+	this->rotX = 0;
+	this->rotY = 0;
+	this->rotZ = 0;
 }
-
 
 void Quad::Load()
 {

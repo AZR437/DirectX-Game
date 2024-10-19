@@ -36,4 +36,87 @@ Vector3D Vector3D::Lerp(const Vector3D& start, const Vector3D& end, float delta)
 	return result;
 }
 
+Vector3D Vector3D::operator*(float num)
+{
+	return Vector3D(this->x*num, this->y * num, this->z * num );
+}
+
+Vector3D Vector3D::operator+(Vector3D vec)
+{
+	return Vector3D(this->x + vec.x, this->y + vec.y, this->z + vec.z);
+}
+
+Vector3D operator-(const Vector3D& right) {
+    return Vector3D(-right.x, -right.y, -right.z);
+}
+
+Vector3D operator+(const Vector3D& left, const Vector3D& right) {
+    return Vector3D(left.x + right.x, left.y + right.y, left.z + right.z);
+}
+
+Vector3D& operator+=(Vector3D& left, const Vector3D& right) {
+    left = left + right;
+    return left;
+}
+
+Vector3D operator-(const Vector3D& left, const Vector3D& right) {
+    return Vector3D(left.x - right.x, left.y - right.y, left.z - right.z);
+}
+
+Vector3D& operator-=(Vector3D& left, const Vector3D& right) {
+    left = left - right;
+    return left;
+}
+
+Vector3D operator*(const Vector3D& left, const Vector3D& right) {
+    return Vector3D(left.x * right.x, left.y * right.y, left.z * right.z);
+}
+
+Vector3D& operator*=(Vector3D& left, const Vector3D& right) {
+    left = left * right;
+    return left;
+}
+
+Vector3D operator*(const Vector3D& left, const float& right) {
+    return Vector3D(left.x * right, left.y * right, left.z * right);
+}
+
+Vector3D operator*(const float& left, const Vector3D& right) {
+    return Vector3D(left * right.x, left * right.y, left * right.z);
+}
+
+Vector3D& operator*=(Vector3D& left, const float& right) {
+    left = left * right;
+    return left;
+}
+
+Vector3D operator/(const Vector3D& left, const Vector3D& right) {
+    return Vector3D(left.x * right.x, left.y * right.y, left.z * right.z);
+}
+
+Vector3D& operator/=(Vector3D& left, const Vector3D& right) {
+    left = left / right;
+    return left;
+}
+
+Vector3D operator/(const Vector3D& left, const float& right) {
+    return Vector3D(left.x / right, left.y / right, left.z / right);
+}
+
+Vector3D operator/(const float& left, const Vector3D& right) {
+    return Vector3D(left / right.x, left / right.y, left / right.z);
+}
+
+Vector3D& operator/=(Vector3D& left, const float& right) {
+    left = left / right;
+    return left;
+}
+
+bool operator==(const Vector3D& left, const Vector3D& right) {
+    return (left.x == right.x && left.y == right.y && left.z == right.z);
+}
+
+bool operator!=(const Vector3D& left, const Vector3D& right) {
+    return (left.x != right.x || left.y != right.y || left.z != right.z);
+}
 

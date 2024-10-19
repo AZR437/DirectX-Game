@@ -61,6 +61,7 @@ bool GraphicsEngine::Release()
 	this->immDeviceContext->Release();
 	this->d3dDevice->Release();
 	return true;
+	delete sharedInstance;
 }
 
 void GraphicsEngine::Initialize()

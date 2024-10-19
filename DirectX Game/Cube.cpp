@@ -9,7 +9,9 @@ Cube::Cube(float width, float height)
 	this->windowWidth = width;
 	this->windowHeight = height;
 	this->position = Vector3D(0,0,0);
-	this->rotation = Vector3D(0,0,0);
+	this->rotX = 0;
+	this->rotY = 0;
+	this->rotZ = 0;
 	this->scale = Vector3D(0.25,0.25,0.25);
 }
 
@@ -18,7 +20,9 @@ Cube::Cube(float width, float height, Transforms transformMatrices)
 	this->windowWidth = width;
 	this->windowHeight = height;
 	this->position = transformMatrices.position;
-	this->rotation = transformMatrices.rotation;
+	this->rotX = transformMatrices.rotation.x;
+	this->rotY = transformMatrices.rotation.y;
+	this->rotZ = transformMatrices.rotation.z;
 	this->scale = transformMatrices.scale;
 }
 
@@ -27,16 +31,16 @@ void Cube::Load()
 	vertex list[] =
 	{
 		//Front
-		{ Vector3D(-0.5f,-0.5f, -0.5f),  Vector3D(0,0,0),  Vector3D(0,1,0) }, // POS1
-		{ Vector3D(-0.5f, 0.5f, -0.5f),  Vector3D(1,1,0),  Vector3D(1,1,0) }, // POS2
+		{ Vector3D(-0.5f,-0.5f, -0.5f),  Vector3D(0,0,0),  Vector3D(1,1,1) }, // POS1
+		{ Vector3D(-0.5f, 0.5f, -0.5f),  Vector3D(1,0,0),  Vector3D(0,1,0) }, // POS2
 		{ Vector3D( 0.5f,  0.5f, -0.5f), Vector3D(0,0,1),  Vector3D(1,0,0) },// POS2
-		{ Vector3D( 0.5f, -0.5f, -0.5f), Vector3D(1,1,1),  Vector3D(0,0,1) },
+		{ Vector3D( 0.5f, -0.5f, -0.5f), Vector3D(1,1,1),  Vector3D(0,0,0) },
 
 		//Back
-		{ Vector3D( 0.5f,-0.5f, 0.5f),   Vector3D(0,0,0),  Vector3D(0,1,0) }, // POS1
-		{ Vector3D( 0.5f, 0.5f, 0.5f),   Vector3D(1,1,0),  Vector3D(1,1,0) }, // POS2
+		{ Vector3D( 0.5f,-0.5f, 0.5f),   Vector3D(0,0,0),  Vector3D(1,1,1) }, // POS1
+		{ Vector3D( 0.5f, 0.5f, 0.5f),   Vector3D(1,0,0),  Vector3D(0,1,0) }, // POS2
 		{ Vector3D(-0.5f, 0.5f, 0.5f),  Vector3D(0,0,1),  Vector3D(1,0,0) },// POS2
-		{ Vector3D(-0.5f,-0.5f, 0.5f), Vector3D(1,1,1),  Vector3D(0,0,1) },
+		{ Vector3D(-0.5f,-0.5f, 0.5f), Vector3D(1,1,1),  Vector3D(1,1,1) },
 
 
 	};
@@ -132,6 +136,62 @@ Cube::~Cube()
 {
 }
 
+Vector3D Cube::GetScale()
+{
+	return this->scale;
+}
+
+void Cube::SetScale(Vector3D scaleNew)
+{
+	this->scale = scaleNew;
+}
+
+Vector3D Cube::GetPosition()
+{
+	return this->position;
+}
+
+void Cube::SetPosition(Vector3D positionNew)
+{
+	this->position = positionNew;
+}
+
+float Cube::GetRotX()
+{
+	return this->rotX;
+}
+
+void Cube::SetRotX(float newX)
+{
+	this->rotX += newX * this->deltaTime;
+}
+
+float Cube::GetRotY()
+{
+	return this->rotY;
+}
+
+void Cube::SetRotY(float newY)
+{
+	this->rotY = newY;
+}
+
+float Cube::GetRotZ()
+{
+	return this->rotZ;
+}
+
+void Cube::SetRotZ(float newZ)
+{
+	this->rotZ = newZ;
+}
+
+
+float Cube::GetDeltaTime()
+{
+	return this->deltaTime;
+}
+
 void Cube::updatePosition()
 {
 	constant cc;
@@ -149,15 +209,14 @@ void Cube::updatePosition()
 	//cc.world.SetScale(Vector3D::Lerp(Vector3D(0.25, 0.25, 0), Vector3D(1, 1, 0), (sin(this->deltaScale) + 1.0f) / 2));
 	//temp.SetTranslate(Vector3D::Lerp(Vector3D(-1, -1, 0), Vector3D(1, 1, 0), deltaPos));
 	//cc.world.SetScale();
-	
 	cc.world.SetScale(this->scale);
-
+	
 	temp.SetIdentity();
-	temp.SetRotationZ(deltaScale);
+	temp.SetRotationZ(this->rotZ * (PI / 180));
 	cc.world *= temp;
 
 	temp.SetIdentity();
-	temp.SetRotationY(deltaScale);
+	temp.SetRotationY(this->rotY * (PI/180));
 	cc.world *= temp;
 
 	temp.SetIdentity();
@@ -168,8 +227,8 @@ void Cube::updatePosition()
 	temp.SetTranslate(this->position);
 	cc.world *= temp;
 
-	cc.view.SetIdentity();
-	cc.projection.SetOrthoPM(this->windowWidth / 400.0f, this->windowHeight / 400.0f, -4.0f, 4.0f);
+	cc.view = CameraManager::GetInstance()->GetSelectedCamera()->GetView();
+	cc.projection = CameraManager::GetInstance()->GetSelectedCamera()->GetProj();;
 
 	this->constantBuffer->Update(GraphicsEngine::GetInstance()->GetImmediateDeviceContext(), &cc);
 }

@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Window.cpp">
-      <Filter>WindowSystem</Filter>
+      <Filter>GameEngine\WindowSystem</Filter>
     </ClCompile>
     <ClCompile Include="AppWindow.cpp">
       <Filter>App</Filter>
@@ -55,10 +55,25 @@
     <ClCompile Include="Cube.cpp">
       <Filter>GameEngine\Primitives</Filter>
     </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>GameEngine\InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>GameEngine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4D.cpp">
+      <Filter>GameEngine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameEngine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>GameEngine\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
-      <Filter>WindowSystem</Filter>
+      <Filter>GameEngine\WindowSystem</Filter>
     </ClInclude>
     <ClInclude Include="AppWindow.h">
       <Filter>App</Filter>
@@ -111,6 +126,24 @@
     <ClInclude Include="Cube.h">
       <Filter>GameEngine\Primitives</Filter>
     </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>GameEngine\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="InputListener.h">
+      <Filter>GameEngine\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4D.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameEngine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>GameEngine\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
@@ -118,9 +151,6 @@
     </Filter>
     <Filter Include="GameEngine">
       <UniqueIdentifier>{e886533a-fc64-4a8d-8f0e-c248760a442b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WindowSystem">
-      <UniqueIdentifier>{efd081a1-0651-4d16-9e6c-195b74f1c6fe}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameEngine\GraphicsEngine">
       <UniqueIdentifier>{75c26274-dca6-4ebc-bfb1-97ab5e154e7a}</UniqueIdentifier>
@@ -157,6 +187,15 @@
     </Filter>
     <Filter Include="GameEngine\GraphicsEngine\IndexBuffer">
       <UniqueIdentifier>{93bf7e30-35b3-4546-843c-de19a29014b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\WindowSystem">
+      <UniqueIdentifier>{efd081a1-0651-4d16-9e6c-195b74f1c6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\InputSystem">
+      <UniqueIdentifier>{6dfd13fc-e859-4393-8754-3b30431a866a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Camera">
+      <UniqueIdentifier>{1df75de6-8102-43eb-9e9c-9204ba3cb682}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

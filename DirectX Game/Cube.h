@@ -6,6 +6,8 @@
 #include "PixelShader.h"
 #include "Constants.h"
 #include "EngineTime.h"
+#include "InputSystem.h"
+#include "CameraManager.h"
 
 class Cube
 {
@@ -21,9 +23,12 @@ private:
 	float deltaScale = 0;
 	float multiplier = 1.0f;
 	float angle = 0;
+	float rotX;
+	float rotY;
+	float rotZ;
 	Vector3D scale;
 	Vector3D position;
-	Vector3D rotation;
+	
 public:
 	Cube();
 	Cube(float width, float height);
@@ -33,6 +38,18 @@ public:
 	void Draw();
 	void Release();
 	~Cube();
+public:
+	Vector3D GetScale();
+	void SetScale(Vector3D scaleNew);
+	Vector3D GetPosition();
+	void SetPosition(Vector3D positionNew);
+	float GetRotX();
+	void SetRotX(float newX);
+	float GetRotY();
+	void SetRotY(float newY);
+	float GetRotZ();
+	void SetRotZ(float newZ);
+	float GetDeltaTime();
 public:
 	void updatePosition();
 private:
