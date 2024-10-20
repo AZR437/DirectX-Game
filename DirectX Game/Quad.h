@@ -5,6 +5,7 @@
 #include "PixelShader.h"
 #include "Constants.h"
 #include "EngineTime.h"
+#include "CameraManager.h"
 
 class Quad
 {

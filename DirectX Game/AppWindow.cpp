@@ -13,27 +13,7 @@ AppWindow::~AppWindow()
 
 void AppWindow::OnKeyDown(int key)
 {
-	if (key == 'W')
-	{
-		std::cout << "W" << std::endl;
-		this->primitiveLoader->GetCubeList()[0].SetRotX(45);
-		std::cout << this->primitiveLoader->GetCubeList()[0].GetRotX() << std::endl;
-	}
-	if (key == 'A')
-	{
-		std::cout << "A" << std::endl;
-		
-	}
-	if (key == 'S')
-	{
-		std::cout << "S" << std::endl;
-		
-	}
-	if (key == 'D')
-	{
-		std::cout << "D" << std::endl;
-		
-	}
+	
 }
 
 void AppWindow::OnKeyRelease(int key)
@@ -58,21 +38,25 @@ void AppWindow::OnKillFocus()
 
 void AppWindow::OnLeftMouseDown(const Vector2D& mousePos)
 {
+	
 	//std::cout << "LM Press" << std::endl;
 }
 
 void AppWindow::OnLeftMouseRelease(const Vector2D& mousePos)
 {
+	
 	//std::cout << "LM Release" << std::endl;
 }
 
 void AppWindow::OnRightMouseDown(const Vector2D& mousePos)
 {
+	//::ShowCursor(false);
 	//std::cout << "RM Press" << std::endl;
 }
 
 void AppWindow::OnRightMouseRelease(const Vector2D& mousePos)
 {
+	//::ShowCursor(true);
 	/*std::cout << "RM Release" << std::endl;*/
 }
 
@@ -113,12 +97,21 @@ void AppWindow::OnCreate()
 
 
 	this->primitiveLoader = new PrimitiveLoader(width, height);
-	Transforms transformList[] =
+	Transforms cubeTransformList[] =
 	{
-		{Vector3D(0.25f,0.25f,0.25f), Vector3D(45,45,45), Vector3D(0.f,0,2)}
+		{Vector3D(0.25f,0.25f,0.25f), Vector3D(0,0,0), Vector3D(0.f,-1.f,0)}
 	};
-	this->primitiveLoader->LoadPrimitives(CUBE, 1, transformList);
-	
+	Transforms quadTransformList[] =
+	{
+		{Vector3D(5.f,5.f,5.f), Vector3D(90,0,0), Vector3D(0.f,-1.f,0)}
+	};
+	Transforms circleTransformList[] =
+	{
+		{Vector3D(5.f,5.f,5.f), Vector3D(0,0,0), Vector3D(0.f,0.f,0)}
+	};
+	this->primitiveLoader->LoadPrimitives(CUBE, 1, cubeTransformList);
+	this->primitiveLoader->LoadPrimitives(QUAD, 1, quadTransformList);
+	this->primitiveLoader->LoadPrimitives(CIRCLE, 1,circleTransformList);
 	
 
 }

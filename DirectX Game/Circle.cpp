@@ -1,40 +1,84 @@
-#include "Quad.h"
+#include "Circle.h"
 
-
-
-Quad::Quad()
+Circle::Circle()
 {
 }
 
-Quad::Quad(float width, float height)
+Circle::Circle(float width, float height, Transforms transform)
 {
 	this->windowWidth = width;
 	this->windowHeight = height;
+	this->position = transform.position;
+	this->scale = transform.scale;
+	this->rotX = transform.rotation.x;
+	this->rotY = transform.rotation.y;
+	this->rotZ = transform.rotation.z;
 }
-
-Quad::Quad(float width, float height, Transforms transformMatrices)
+//Circle::Circle(float width, float height, Vector3D start, Vector3D destination)
+//{
+//	this->windowWidth = width;
+//	this->windowHeight = height;
+//	this->source = start;
+//	this->destination = destination;
+//}
+Circle::Circle(float width, float height)
 {
 	this->windowWidth = width;
 	this->windowHeight = height;
-	this->scale = transformMatrices.scale;
-	this->position = transformMatrices.position;
-	this->rotX = transformMatrices.rotation.x;
-	this->rotY = transformMatrices.rotation.y;
-	this->rotZ = transformMatrices.rotation.z;
+	this->position = Vector3D(0, 0, 0);
+	this->scale = Vector3D(1, 1, 1);;
+	this->rotX = 0;
+	this->rotY = 0;
+	this->rotZ = 0;
 }
 
-void Quad::Load()
+void Circle::Load()
 {
-	vertex list[] =
+
+	int numSegments = 100;
+	vertex list[sizeof(vertex)*10*3];
+	float deltaTheta = 2.0f * 3.14159f / numSegments;
+	float radius = 0.25f;
+	for (int i = 0; i < numSegments;i++)
 	{
-
-		{ Vector3D(-0.5f,-0.5f,0.0f), Vector3D(1,1,1),  Vector3D(1,1,1) }, // POS1
-		{ Vector3D(-0.5f,0.5f,0.0f),  Vector3D(1,1,1),  Vector3D(1,1,1) }, // POS2
-		{ Vector3D(0.5f,-0.5f,0.0f),  Vector3D(1,1,1),  Vector3D(1,1,1) },// POS2
-		{ Vector3D(0.5f,0.5f,0.0f),   Vector3D(1,1,1),  Vector3D(1,1,1) }
-	};
+		float theta = i* deltaTheta;
+		int index = i * 3;
+		vertex Vertice;
+		Vertice.position.x = 0;
+		Vertice.position.y = 0;
+		Vertice.position.z = 0;
+		Vertice.colour.x = 1.0f;
+		Vertice.colour.y = 0.0f;
+		Vertice.colour.z = 0.0f;
+		Vertice.colour1.x = 0.0f;
+		Vertice.colour1.y = 0.0f;
+		Vertice.colour1.z = 1.0f;
+		list[index + 0] = Vertice;
+		Vertice.position.x = radius* cos(theta);
+		Vertice.position.y =  radius *sin(theta);
+		Vertice.position.z = 0;
+		Vertice.colour.x = 1.0f;
+		Vertice.colour.y = 0.0f;
+		Vertice.colour.z = 0.0f;
+		Vertice.colour1.x = 0.0f;
+		Vertice.colour1.y = 0.0f;
+		Vertice.colour1.z = 1.0f;
+		list[index + 1] = Vertice;
+		Vertice.position.x = radius * cos(theta + deltaTheta);
+		Vertice.position.y = radius * sin(theta + deltaTheta);
+		Vertice.position.z = 0;
+		Vertice.colour.x = 1.0f;
+		Vertice.colour.y = 0.0f;
+		Vertice.colour.z = 0.0f;
+		Vertice.colour1.x = 0.0f;
+		Vertice.colour1.y = 0.0f;
+		Vertice.colour1.z = 1.0f;
+		list[index + 2] = Vertice;
+		
+	}
 	UINT listSize = ARRAYSIZE(list);
 	this->vertexBuffer = GraphicsEngine::GetInstance()->CreateVertexBuffer();
+
 
 
 
@@ -62,7 +106,8 @@ void Quad::Load()
 	this->constantBuffer->Load(&cc, sizeof(constant));
 }
 
-void Quad::Draw()
+
+void Circle::Draw()
 {
 	this->deltaTime = EngineTime::GetDeltaTime();
 
@@ -80,23 +125,22 @@ void Quad::Draw()
 	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetVertexBuffer(this->vertexBuffer);
 	// Draw
 	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->DrawTriangleStrip(this->vertexBuffer->GetVertexSizelist(), 0);
-
 }
 
-void Quad::Release()
+void Circle::Release()
 {
 	this->vertexBuffer->Release();
 	this->vertexShader->Release();
 	this->pixelShader->Release();
 	this->constantBuffer->Release();
-	
 }
 
-Quad::~Quad()
+Circle::~Circle()
 {
+
 }
 
-void Quad::updatePosition()
+void Circle::updatePosition()
 {
 	constant cc;
 	cc.angle = this->angle;
@@ -109,11 +153,7 @@ void Quad::updatePosition()
 
 	Matrix4x4 temp;
 	this->deltaScale += this->deltaTime * 1.f;
-	//cc.world.SetTranslate(Vector3D(0, 0, 0));
-	//cc.world.SetScale(Vector3D::Lerp(Vector3D(0.25, 0.25, 0), Vector3D(1, 1, 0), (sin(this->deltaScale) + 1.0f) / 2));
-	//temp.SetTranslate(Vector3D::Lerp(Vector3D(-1, -1, 0), Vector3D(1, 1, 0), deltaPos));
-	//cc.world.SetScale();
-	cc.world.SetScale(this->scale);
+	cc.world.SetScale(Vector3D(1, 1, 1));
 
 	temp.SetIdentity();
 	temp.SetRotationZ(this->rotZ * (PI / 180));
@@ -136,6 +176,3 @@ void Quad::updatePosition()
 
 	this->constantBuffer->Update(GraphicsEngine::GetInstance()->GetImmediateDeviceContext(), &cc);
 }
-
-
-

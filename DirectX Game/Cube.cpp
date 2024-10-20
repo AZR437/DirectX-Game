@@ -220,7 +220,7 @@ void Cube::updatePosition()
 	cc.world *= temp;
 
 	temp.SetIdentity();
-	temp.SetRotationX(deltaScale);
+	temp.SetRotationX(this->rotX*(PI/180));
 	cc.world *= temp;
 
 	temp.SetIdentity();

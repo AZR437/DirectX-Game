@@ -21,35 +21,37 @@ void Camera::Update()
 		}
 		if (InputSystem::GetInstance()->IsKey('W'))
 		{
-			std::cout << "W" << "\n";
+			std::cout << "W" << std::endl;
 			this->pos += this->transforms.GetForward() * this->moveSpeed * this->deltaTime;
+			std::cout << "Forward" << std::endl;
 		}
 		if (InputSystem::GetInstance()->IsKey('S'))
 		{
-			std::cout << "S" << "\n";
+			std::cout << "S" << std::endl;
 			this->pos -= this->transforms.GetForward() * this->moveSpeed * this->deltaTime;
 		}
 		if (InputSystem::GetInstance()->IsKey('D'))
 		{
-			std::cout << "D" << "\n";
+			std::cout << "D" << std::endl;
 			this->pos += this->transforms.GetRight() * this->moveSpeed * this->deltaTime;
 		}
 		if (InputSystem::GetInstance()->IsKey('A'))
 		{
-			std::cout << "A" << "\n";
+			std::cout << "A" << std::endl;
 			this->pos -= this->transforms.GetRight() * this->moveSpeed * this->deltaTime;
 		}
 		if (InputSystem::GetInstance()->IsKey('Q'))
 		{
-			std::cout << "Q" << "\n";
+			std::cout << "Q" << std::endl;
 			this->pos.y += this->moveSpeed * this->deltaTime;
 		}
 		if (InputSystem::GetInstance()->IsKey('E'))
 		{
-			std::cout << "E" << "\n";
+			std::cout << "E" << std::endl;
 			this->pos.y -= this->moveSpeed * this->deltaTime;
 		}
 	}
+	
 	
 	Matrix4x4 temp;
 	this->transforms.SetIdentity();

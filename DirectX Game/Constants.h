@@ -28,5 +28,6 @@ enum PrimitveType
 {
 	QUAD = 0,
 	TRI,
-	CUBE
+	CUBE,
+	CIRCLE
 };

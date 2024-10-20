@@ -70,6 +70,9 @@
     <ClCompile Include="CameraManager.cpp">
       <Filter>GameEngine\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>GameEngine\Primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>GameEngine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>GameEngine\Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,10 @@ void PrimitiveLoader::LoadPrimitives(PrimitveType primitiveType, int spawnNumber
 		case CUBE:
 			this->LoadCubes(this->windowWidth, this->windowHeight);
 			break;
+			
+		case CIRCLE:
+			this->LoadCircles(this->windowWidth, this->windowHeight);
+			break;
 		default:
 			break;
 	}
@@ -31,13 +35,16 @@ void PrimitiveLoader::LoadPrimitives(PrimitveType primitiveType, int spawnNumber
 	{
 	case QUAD:
 		//this->LoadQuads(spawnNumber, transformList);
-		//this->LoadQuads(this->windowWidth, this->windowHeight);
+		this->LoadQuads(this->windowWidth, this->windowHeight, spawnNumber, transformMatrices);
 		break;
 	case TRI:
 		//this->LoadTris(spawnNumber, transformList);
 		break;
 	case CUBE:
 		this->LoadCubes(this->windowWidth, this->windowHeight, spawnNumber, transformMatrices);
+		break;
+	case CIRCLE:
+		this->LoadCircles(this->windowWidth, this->windowHeight,spawnNumber,transformMatrices);
 		break;
 	default:
 		break;
@@ -70,6 +77,14 @@ void PrimitiveLoader::DrawPrimitives()
 			
 		}
 	}
+	if (!this->circleList.empty())
+	{
+		for (int i = 0; i < this->circleList.size(); i++)
+		{
+			this->circleList[i].Draw();
+
+		}
+	}
 }
 
 void PrimitiveLoader::ReleasePrimitives()
@@ -97,6 +112,15 @@ void PrimitiveLoader::ReleasePrimitives()
 			this->cubeList[i].Release();
 			this->cubeList.erase(this->cubeList.begin() + i);
 			
+		}
+	}
+	if (!this->circleList.empty())
+	{
+		for (int i = 0; i < this->circleList.size(); i++)
+		{
+			this->circleList[i].Release();
+			this->circleList.erase(this->circleList.begin() + i);
+
 		}
 	}
 	delete this;
@@ -155,6 +179,21 @@ void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight, int spawn
 		this->cubeList.push_back(Cube(windowWidth,windowHeight, transforms));
 		this->cubeList[i].Load();
 
+	}
+}
+
+void PrimitiveLoader::LoadCircles(float windowWidth, float windowHeight)
+{
+	this->circleList.push_back(Circle(windowWidth, windowHeight));
+	this->circleList[0].Load();
+}
+
+void PrimitiveLoader::LoadCircles(float windowWidth, float windowHeight, int spawnNumber, Transforms transformMatrices[])
+{
+	for (int i = 0; i < spawnNumber; i++)
+	{
+		this->circleList.push_back(Circle(windowWidth, windowHeight, transformMatrices[i]));
+		this->circleList[i].Load();
 	}
 }
 
