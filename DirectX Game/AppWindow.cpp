@@ -99,19 +99,38 @@ void AppWindow::OnCreate()
 	this->primitiveLoader = new PrimitiveLoader(width, height);
 	Transforms cubeTransformList[] =
 	{
-		{Vector3D(0.25f,0.25f,0.25f), Vector3D(0,0,0), Vector3D(0.f,-1.f,0)}
+		//Lowest Caste
+		{Vector3D(1.f,0.02f,.5f), Vector3D(0,0,75), Vector3D(0.f,0.f,0)},
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,-75), Vector3D(0.25f,0.f,0) },
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,75), Vector3D(0.5f,0.f,0) },
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,-75), Vector3D(0.75f,0.f,0) },
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,75), Vector3D(1.f,0.f,0) },
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,-75), Vector3D(1.25f,0.f,0) },
+		//Barrier 1
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,0), Vector3D(0.25f,0.5f,0) },
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,0), Vector3D(0.95f,0.5f,0) },
+		//Middle Caste
+		{Vector3D(1.f,0.02f,.5f), Vector3D(0,0,75), Vector3D(0.25f,1.f,0)},
+		{Vector3D(1.f,0.02f,.5f), Vector3D(0,0,-75), Vector3D(0.5f,1.f,0)},
+		{Vector3D(1.f,0.02f,.5f), Vector3D(0,0,75), Vector3D(0.75f,1.f,0)},
+		{Vector3D(1.f,0.02f,.5f), Vector3D(0,0,-75), Vector3D(1.f,1.f,0)},
+		//Barrier 2
+		{ Vector3D(1.f,0.02f,.5f), Vector3D(0,0,0), Vector3D(0.60f,1.5f,0) },
+		//Top Caste
+		{Vector3D(1.f,0.02f,.5f), Vector3D(0,0,75), Vector3D(0.50f,2.f,0)},
+		{Vector3D(1.f,0.02f,.5f), Vector3D(0,0,-75), Vector3D(0.75f,2.f,0)},
 	};
 	Transforms quadTransformList[] =
 	{
-		{Vector3D(5.f,5.f,5.f), Vector3D(90,0,0), Vector3D(0.f,-1.f,0)}
+		{Vector3D(5.f,5.f,5.f), Vector3D(90,0,0), Vector3D(0.f,0.f,0)}
 	};
 	Transforms circleTransformList[] =
 	{
-		{Vector3D(5.f,5.f,5.f), Vector3D(0,0,0), Vector3D(0.f,0.f,0)}
+		{Vector3D(5.f,5.f,5.f), Vector3D(0,0,0), Vector3D(0.f,1.f,0)}
 	};
-	this->primitiveLoader->LoadPrimitives(CUBE, 1, cubeTransformList);
-	this->primitiveLoader->LoadPrimitives(QUAD, 1, quadTransformList);
-	this->primitiveLoader->LoadPrimitives(CIRCLE, 1,circleTransformList);
+	this->primitiveLoader->LoadPrimitives(CUBE,15,cubeTransformList);
+	/*this->primitiveLoader->LoadPrimitives(QUAD, 1, quadTransformList);
+	this->primitiveLoader->LoadPrimitives(CIRCLE, 1,circleTransformList);*/
 	
 
 }

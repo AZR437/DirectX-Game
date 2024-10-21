@@ -58,6 +58,11 @@ Vector3D Matrix4x4::GetTranslate()
 	return Vector3D(this->matrix[3][0], this->matrix[3][1], this->matrix[3][2]);
 }
 
+Vector3D Matrix4x4::GetScale()
+{
+	return Vector3D(this->matrix[0][0], this->matrix[1][1], this->matrix[2][2]);
+}
+
 Vector3D Matrix4x4::GetRight()
 {
 	return Vector3D(this->matrix[0][0], this->matrix[1][0], this->matrix[2][0]);

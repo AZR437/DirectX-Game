@@ -28,6 +28,7 @@ public:
     friend Vector3D& operator/=(Vector3D& left, const float& right);
     friend bool operator==(const Vector3D& left, const Vector3D& right);
     friend bool operator!=(const Vector3D& left, const Vector3D& right);
+    friend bool operator<(const Vector3D& left, const Vector3D& right);
 	public:
 		float x, y, z;
 };

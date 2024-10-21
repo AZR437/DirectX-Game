@@ -6,23 +6,44 @@ PrimitiveLoader::PrimitiveLoader(float width, float height)
 	this->windowHeight = height;
 }
 
+void PrimitiveLoader::LoadPrimitives(PrimitveType primitiveType)
+{
+	switch (primitiveType)
+	{
+	case QUAD:
+		this->LoadQuads(this->windowWidth, this->windowHeight);
+		break;
+	case TRI:
+		//this->LoadTris(spawnNumber, transformList);
+		break;
+	case CUBE:
+		this->LoadCubes(this->windowWidth, this->windowHeight);
+		break;
+
+	case CIRCLE:
+		this->LoadCircles(this->windowWidth, this->windowHeight);
+		break;
+	default:
+		break;
+	}
+}
+
 void PrimitiveLoader::LoadPrimitives(PrimitveType primitiveType, int spawnNumber)
 {
 	switch (primitiveType)
 	{
 		case QUAD:
-			//this->LoadQuads(spawnNumber, transformList);
-			this->LoadQuads(this->windowWidth, this->windowHeight);
+			//this->LoadQuads(this->windowWidth, this->windowHeight);
 			break;
 		case TRI:
 			//this->LoadTris(spawnNumber, transformList);
 			break;
 		case CUBE:
-			this->LoadCubes(this->windowWidth, this->windowHeight);
+			this->LoadCubes(this->windowWidth, this->windowHeight,spawnNumber);
 			break;
 			
 		case CIRCLE:
-			this->LoadCircles(this->windowWidth, this->windowHeight);
+			//this->LoadCircles(this->windowWidth, this->windowHeight);
 			break;
 		default:
 			break;
@@ -34,7 +55,6 @@ void PrimitiveLoader::LoadPrimitives(PrimitveType primitiveType, int spawnNumber
 	switch (primitiveType)
 	{
 	case QUAD:
-		//this->LoadQuads(spawnNumber, transformList);
 		this->LoadQuads(this->windowWidth, this->windowHeight, spawnNumber, transformMatrices);
 		break;
 	case TRI:
@@ -169,12 +189,14 @@ void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight, int spawn
 
 void PrimitiveLoader::LoadCubes(float windowWidth, float windowHeight, int spawnNumber)
 {
+	srand(time(0));
 	for (int i = 0; i < spawnNumber; i++)
 	{
 		Vector3D pos = this->RandomPos();
+		//Vector3D rot = this->RandomRot();
 		Transforms transforms= 
 		{
-			 Vector3D(0.25f,0.25f,0.25f), Vector3D(0,0,0), pos
+			 Vector3D(0.25f,0.25f,0.25f),  Vector3D(0,0,0), pos
 		};
 		this->cubeList.push_back(Cube(windowWidth,windowHeight, transforms));
 		this->cubeList[i].Load();
@@ -221,16 +243,16 @@ Vector3D PrimitiveLoader::RandomPos()
 
 Vector3D PrimitiveLoader::RandomRot()
 {
-	std::srand(time(0));
-	float randomValueX = (rand() % 360) * PI / 180;
-	float randomValueY = (rand() % 360) * PI / 180;
-	float randomValueZ = (rand() % 360) * PI / 180;
-	return Vector3D();
+
+	float randomValueX = (rand() % 360) ;
+	float randomValueY = (rand() % 360) ;
+	float randomValueZ = (rand() % 360) ;
+	return Vector3D(randomValueX, randomValueY, randomValueZ);
 }
 
 Vector3D PrimitiveLoader::RandomScale()
 {
-	std::srand(time(0));
+	
 	
 	float randomValueX = (float)rand() / RAND_MAX;
 	float randomValueY = (float)rand() / RAND_MAX;

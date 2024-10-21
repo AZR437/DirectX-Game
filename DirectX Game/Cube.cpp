@@ -12,7 +12,7 @@ Cube::Cube(float width, float height)
 	this->rotX = 0;
 	this->rotY = 0;
 	this->rotZ = 0;
-	this->scale = Vector3D(0.25,0.25,0.25);
+	this->scale = Vector3D(0.5,0.5,0.5);
 }
 
 Cube::Cube(float width, float height, Transforms transformMatrices)
@@ -31,16 +31,16 @@ void Cube::Load()
 	vertex list[] =
 	{
 		//Front
-		{ Vector3D(-0.5f,-0.5f, -0.5f),  Vector3D(0,0,0),  Vector3D(1,1,1) }, // POS1
-		{ Vector3D(-0.5f, 0.5f, -0.5f),  Vector3D(1,0,0),  Vector3D(0,1,0) }, // POS2
-		{ Vector3D( 0.5f,  0.5f, -0.5f), Vector3D(0,0,1),  Vector3D(1,0,0) },// POS2
-		{ Vector3D( 0.5f, -0.5f, -0.5f), Vector3D(1,1,1),  Vector3D(0,0,0) },
+		{ Vector3D(-0.5f,-0.5f, -0.5f),  Vector3D(1,0,0),  Vector3D(1,0,0) }, // POS1
+		{ Vector3D(-0.5f, 0.5f, -0.5f),  Vector3D(1,1,0),  Vector3D(1,1,0) }, // POS2
+		{ Vector3D( 0.5f,  0.5f, -0.5f), Vector3D(0,0,1),  Vector3D(0,0,1) },// POS2
+		{ Vector3D( 0.5f, -0.5f, -0.5f), Vector3D(1,1,1),  Vector3D(1,1,1) },
 
 		//Back
-		{ Vector3D( 0.5f,-0.5f, 0.5f),   Vector3D(0,0,0),  Vector3D(1,1,1) }, // POS1
-		{ Vector3D( 0.5f, 0.5f, 0.5f),   Vector3D(1,0,0),  Vector3D(0,1,0) }, // POS2
-		{ Vector3D(-0.5f, 0.5f, 0.5f),  Vector3D(0,0,1),  Vector3D(1,0,0) },// POS2
-		{ Vector3D(-0.5f,-0.5f, 0.5f), Vector3D(1,1,1),  Vector3D(1,1,1) },
+		{ Vector3D( 0.5f,-0.5f, 0.5f),   Vector3D(1,0,0),  Vector3D(1,0,0) }, // POS1
+		{ Vector3D( 0.5f, 0.5f, 0.5f),   Vector3D(1,1,0),  Vector3D(1,1,0) }, // POS2
+		{ Vector3D(-0.5f, 0.5f, 0.5f),   Vector3D(0,0,1),  Vector3D(0,0,1) },// POS2
+		{ Vector3D(-0.5f,-0.5f, 0.5f),   Vector3D(1,1,1),  Vector3D(1,1,1) },
 
 
 	};
@@ -200,31 +200,38 @@ void Cube::updatePosition()
 	this->deltaPos += this->deltaTime * 0.25f;
 	if (this->deltaPos > 1.0f)
 	{
-		this->deltaPos = 0;
+		this->deltaPos = 1;
 	}
 
 	Matrix4x4 temp;
-	this->deltaScale += this->deltaTime * 1.f;
+	this->deltaScale += this->deltaTime * 0.1f;
 	//cc.world.SetTranslate(Vector3D(0, 0, 0));
-	//cc.world.SetScale(Vector3D::Lerp(Vector3D(0.25, 0.25, 0), Vector3D(1, 1, 0), (sin(this->deltaScale) + 1.0f) / 2));
+	//cc.world.SetScale(Vector3D::Lerp();
 	//temp.SetTranslate(Vector3D::Lerp(Vector3D(-1, -1, 0), Vector3D(1, 1, 0), deltaPos));
 	//cc.world.SetScale();
 	cc.world.SetScale(this->scale);
+
+	//cc.world.SetScale(Vector3D::Lerp(this->scale, Vector3D(10, 2, 10), deltaPos));
 	
+	//cc.world.SetScale(Vector3D::Lerp(this->scale, Vector3D(1, 1, 1), (sin(this->deltaScale) + 1.0f) / 2));
 	temp.SetIdentity();
 	temp.SetRotationZ(this->rotZ * (PI / 180));
+	//temp.SetRotationZ(this->deltaScale);
 	cc.world *= temp;
 
 	temp.SetIdentity();
 	temp.SetRotationY(this->rotY * (PI/180));
+	//temp.SetRotationY(this->deltaScale);
 	cc.world *= temp;
 
 	temp.SetIdentity();
 	temp.SetRotationX(this->rotX*(PI/180));
+	//temp.SetRotationX(this->deltaScale);
 	cc.world *= temp;
 
 	temp.SetIdentity();
 	temp.SetTranslate(this->position);
+	/*temp.SetTranslate(Vector3D::Lerp(this->position, Vector3D(1, 1, 0), (sin(this->deltaScale) + 1.0f) / 2));*/
 	cc.world *= temp;
 
 	cc.view = CameraManager::GetInstance()->GetSelectedCamera()->GetView();

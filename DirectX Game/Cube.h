@@ -28,6 +28,7 @@ private:
 	float rotZ;
 	Vector3D scale;
 	Vector3D position;
+	bool isPlane;
 	
 public:
 	Cube();

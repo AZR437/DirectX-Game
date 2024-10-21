@@ -14,6 +14,7 @@ class PrimitiveLoader
 		std::vector<Circle> circleList = {};
 	public:
 		PrimitiveLoader(float width, float height);
+		void LoadPrimitives(PrimitveType primitiveType);
 		void LoadPrimitives(PrimitveType primitiveType, int spawnNumber);
 		void LoadPrimitives(PrimitveType primitiveType, int spawnNumber, Transforms transformMatrices[]);
 		void DrawPrimitives();

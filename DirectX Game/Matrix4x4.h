@@ -15,6 +15,7 @@ public:
 	void SetRotationZ(float z);
 
 	Vector3D GetTranslate();
+	Vector3D GetScale();
 	Vector3D GetRight();
 	Vector3D GetUp();
 	Vector3D GetForward();

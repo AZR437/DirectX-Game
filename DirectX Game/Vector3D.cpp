@@ -120,3 +120,8 @@ bool operator!=(const Vector3D& left, const Vector3D& right) {
     return (left.x != right.x || left.y != right.y || left.z != right.z);
 }
 
+bool operator<(const Vector3D& left, const Vector3D& right)
+{
+    return (left.x < right.x || left.y < right.y || left.z < right.z);
+}
+
