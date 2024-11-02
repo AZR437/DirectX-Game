@@ -37,6 +37,8 @@ class DeviceContext
 		void SetVertexShader(VertexShader* vertexShader);
 		void SetPixelShader(PixelShader* pixelShader);
 
+		ID3D11DeviceContext* GetDeviceContext();
+
 		bool Release();
 		~DeviceContext();
 	private:

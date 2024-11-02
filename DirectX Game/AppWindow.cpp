@@ -132,10 +132,11 @@ void AppWindow::OnCreate()
 		{Vector3D(5.f,5.f,5.f), Vector3D(0,0,0), Vector3D(0.f,1.f,0)}
 	};
 	this->primitiveLoader->LoadPrimitives(CUBE,1,cubeTransformList);
-	//this->primitiveLoader->LoadPrimitives(QUAD, 1, quadTransformList);
+	this->primitiveLoader->LoadPrimitives(QUAD, 1, quadTransformList);
 	//this->primitiveloader->loadprimitives(circle, 1,circletransformlist);
-	
-
+	ImGui::CreateContext();
+	ImGui_ImplWin32_Init(this->hwnd);
+	ImGui_ImplDX11_Init(GraphicsEngine::GetInstance()->GetDirectXDevice(), GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->GetDeviceContext());
 }
 void AppWindow::OnUpdate()
 {
@@ -151,7 +152,21 @@ void AppWindow::OnUpdate()
 	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetViewPortSize(width, height);
 
 
+
 	this->primitiveLoader->DrawPrimitives();
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	//ImGui::ShowDemoWindow();
+	ImGui::Begin("About");
+	ImGui::SetWindowPos(ImVec2(100, 50));
+	ImGui::SetWindowSize(ImVec2(width - 500, 100));
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), "DirectX 11 Game Engine");
+	ImGui::TextColored(ImVec4(1,0,0,1), "Developed by: Carlos Miguel M. Arquillo");
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Version Number: 0.45");
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	this->swapChain->Present(true);
 	
 	

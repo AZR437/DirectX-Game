@@ -1,7 +1,7 @@
 #include "Camera.h"
 Camera::Camera()
 {
-	this->pos = Vector3D(0, 0, -11);
+	this->pos = Vector3D(0, 1, -5);
 }
 
 void Camera::Update()

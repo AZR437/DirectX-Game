@@ -57,6 +57,7 @@ class GraphicsEngine
 		
 	public:
 		static GraphicsEngine* GetInstance();
+		ID3D11Device* GetDirectXDevice();
 		static void Initialize();
 		static void Destroy();
 

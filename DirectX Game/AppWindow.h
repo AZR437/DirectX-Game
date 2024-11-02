@@ -9,7 +9,9 @@
 #include "InputSystem.h"
 #include "Constants.h"
 #include "CameraManager.h"
-
+#include "IMGUI/imgui.h"
+#include "IMGUI/imgui_impl_dx11.h"
+#include "IMGUI/imgui_impl_win32.h"
 class AppWindow: public Window, public InputListener
 {
 	public:
@@ -23,9 +25,8 @@ class AppWindow: public Window, public InputListener
 	private:
 		SwapChain* swapChain;
 		PrimitiveLoader* primitiveLoader;
-		bool bCheck = false;
-		bool check2 = false;
-		bool check1 = false;
+		bool check1;
+
 	private:
 		AppWindow();
 		AppWindow(AppWindow const&);

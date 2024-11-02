@@ -209,9 +209,9 @@ void Cube::updatePosition()
 	//cc.world.SetScale(Vector3D::Lerp();
 	//temp.SetTranslate(Vector3D::Lerp(Vector3D(-1, -1, 0), Vector3D(1, 1, 0), deltaPos));
 	//cc.world.SetScale();
-	//cc.world.SetScale(this->scale);
+	cc.world.SetScale(this->scale);
 
-	cc.world.SetScale(Vector3D::Lerp(this->scale, Vector3D(10, 2, 10), deltaPos));
+	//cc.world.SetScale(Vector3D::Lerp(this->scale, Vector3D(10, 2, 10), deltaPos));
 	
 	//cc.world.SetScale(Vector3D::Lerp(this->scale, Vector3D(1, 1, 1), (sin(this->deltaScale) + 1.0f) / 2));
 	temp.SetIdentity();

@@ -173,3 +173,8 @@ GraphicsEngine* GraphicsEngine::GetInstance()
 {
 	return sharedInstance;
 }
+
+ID3D11Device* GraphicsEngine::GetDirectXDevice()
+{
+	return this->d3dDevice;
+}
