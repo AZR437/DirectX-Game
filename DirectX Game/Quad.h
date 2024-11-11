@@ -11,10 +11,10 @@
 class Quad
 {
 	private:
-		VertexBuffer* vertexBuffer;
-		ConstantBuffer* constantBuffer;
-		VertexShader* vertexShader;
-		PixelShader* pixelShader;
+		VertexBufferPtr vertexBuffer;
+		ConstantBufferPtr constantBuffer;
+		VertexShaderPtr vertexShader;
+		PixelShaderPtr pixelShader;
 		unsigned long oldTime = 0;
 		float deltaTime = 0;
 		float deltaPos = 0;

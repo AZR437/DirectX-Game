@@ -48,10 +48,10 @@ void Menu_Bar::DrawUI()
             if (ImGui::MenuItem("Color Picker"))
             {
                 std::cout << UIManager::GetInstance()->GetUITable().at("COLOR_PICKER")->GetName() << std::endl;
-                if (!((Credits_UI*)UIManager::GetInstance()->GetUITable().at("COLOR_PICKER"))->GetActive())
+                if (!((ColorPicker*)UIManager::GetInstance()->GetUITable().at("COLOR_PICKER"))->GetActive())
                 {
-                    ((Credits_UI*)UIManager::GetInstance()->GetUITable().at("COLOR_PICKER"))->SetActive(true);
-                    ((Credits_UI*)UIManager::GetInstance()->GetUITable().at("COLOR_PICKER"))->DrawUI();
+                    ((ColorPicker*)UIManager::GetInstance()->GetUITable().at("COLOR_PICKER"))->SetActive(true);
+                    ((ColorPicker*)UIManager::GetInstance()->GetUITable().at("COLOR_PICKER"))->DrawUI();
                 }
             }
             ImGui::EndMenu();

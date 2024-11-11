@@ -23,7 +23,7 @@ class AppWindow: public Window, public InputListener
 		virtual void OnDestroy() override;
 
 	private:
-		SwapChain* swapChain;
+		SwapChainPtr swapChain;
 		PrimitiveLoader* primitiveLoader;
 
 	private:

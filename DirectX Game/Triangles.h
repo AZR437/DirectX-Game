@@ -10,10 +10,10 @@ class Triangles
 {
 private:
 
-	VertexBuffer* vertexBuffer;
-	ConstantBuffer* constantBuffer;
-	VertexShader* vertexShader;
-	PixelShader* pixelShader;
+	VertexBufferPtr vertexBuffer;
+	ConstantBufferPtr constantBuffer;
+	VertexShaderPtr vertexShader;
+	PixelShaderPtr pixelShader;
 	float deltaTime = 0;
 	float deltaPos = 0;
 	float angle = 0;

@@ -3,7 +3,6 @@
 ColorPicker::ColorPicker(String name):AUIScreen(name)
 {
 	this->isActive = false;
-	this->open = false;
 	
 }
 

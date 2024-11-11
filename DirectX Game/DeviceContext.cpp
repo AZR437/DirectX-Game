@@ -4,7 +4,7 @@ DeviceContext::DeviceContext(ID3D11DeviceContext* deviceContext, RenderSystem* r
 	this->deviceContext = deviceContext;
 	this->renderSystem = renderSystem;
 }
-void DeviceContext::ClearRenderTargetColor(SwapChain* swapChain, float r, float g, float b, float a)
+void DeviceContext::ClearRenderTargetColor(SwapChainPtr swapChain, float r, float g, float b, float a)
 {
 	FLOAT clearColor[] = { r,g,b,a };
 	this->deviceContext->ClearRenderTargetView(swapChain->renderTargetView ,clearColor);
@@ -13,7 +13,7 @@ void DeviceContext::ClearRenderTargetColor(SwapChain* swapChain, float r, float 
 	//std::cout << "Bazinga" << std::endl;
 	
 }
-void DeviceContext::SetVertexBuffer(VertexBuffer* vertexBuffer)
+void DeviceContext::SetVertexBuffer(VertexBufferPtr vertexBuffer)
 {
 	UINT stride = vertexBuffer->sizeVertex;
 	UINT offset = 0;
@@ -22,16 +22,16 @@ void DeviceContext::SetVertexBuffer(VertexBuffer* vertexBuffer)
 	this->deviceContext->IASetInputLayout(vertexBuffer->layout);
 	
 }
-void DeviceContext::SetIndexBuffer(IndexBuffer* indexBuffer)
+void DeviceContext::SetIndexBuffer(IndexBufferPtr indexBuffer)
 {
 	this->deviceContext->IASetIndexBuffer(indexBuffer->buffer, DXGI_FORMAT_R32_UINT, 0);
 }
-void DeviceContext::SetConstantBuffer(VertexShader* vertexShader, ConstantBuffer* constantBuffer)
+void DeviceContext::SetConstantBuffer(VertexShaderPtr vertexShader, ConstantBufferPtr constantBuffer)
 {
 	this->deviceContext->VSSetConstantBuffers(0, 1, &constantBuffer->buffer);
 
 }
-void DeviceContext::SetConstantBuffer(PixelShader* pixelShader, ConstantBuffer* constantBuffer)
+void DeviceContext::SetConstantBuffer(PixelShaderPtr pixelShader, ConstantBufferPtr constantBuffer)
 {
 	this->deviceContext->PSSetConstantBuffers(0, 1, &constantBuffer->buffer);
 }
@@ -62,11 +62,11 @@ void DeviceContext::SetViewPortSize(UINT width, UINT height)
 	vp.MaxDepth = 1.0f;
 	this->deviceContext->RSSetViewports(1, &vp);
 }
-void DeviceContext::SetVertexShader(VertexShader* vertexShader)
+void DeviceContext::SetVertexShader(VertexShaderPtr vertexShader)
 {
 	this->deviceContext->VSSetShader(vertexShader->vertexShader, nullptr, 0);
 }
-void DeviceContext::SetPixelShader(PixelShader* pixelShader)
+void DeviceContext::SetPixelShader(PixelShaderPtr pixelShader)
 {
 	this->deviceContext->PSSetShader(pixelShader->pixelShader, nullptr, 0);
 }

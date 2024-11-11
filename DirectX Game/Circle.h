@@ -11,10 +11,10 @@
 class Circle
 {
 	private:
-		VertexBuffer* vertexBuffer = nullptr;
-		ConstantBuffer* constantBuffer = nullptr;
-		VertexShader* vertexShader = nullptr;
-		PixelShader* pixelShader = nullptr;
+		VertexBufferPtr vertexBuffer = nullptr;
+		ConstantBufferPtr constantBuffer = nullptr;
+		VertexShaderPtr vertexShader = nullptr;
+		PixelShaderPtr pixelShader = nullptr;
 		unsigned long oldTime = 0;
 		float deltaTime = 0;
 		float deltaScale = 0;

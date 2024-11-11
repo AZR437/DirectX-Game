@@ -14,7 +14,7 @@
 class RenderSystem
 {
 private:
-	DeviceContext* immDeviceContext;
+	DeviceContextPtr immDeviceContext;
 private:
 	ID3D11Device* d3dDevice;
 	D3D_FEATURE_LEVEL featureLevel;
@@ -44,13 +44,13 @@ public:
 	bool Release();
 	~RenderSystem();
 public:
-	SwapChain* CreateSwapChain(HWND hwnd, UINT width, UINT height);
-	VertexBuffer* CreateVertexBuffer(void* listVertices, UINT sizeVertex, UINT sizeList, void* shaderByteCode, UINT sizeByteShader);
-	IndexBuffer* CreateIndexBuffer(void* listIndices, UINT sizeList);
-	ConstantBuffer* CreateConstantBuffer(void* buffer, UINT sizeBuffer);
-	VertexShader* CreateVertexShaders(const void* shaderByteCode, size_t byteCodeSize);
-	PixelShader* CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize);
-	DeviceContext* GetImmediateDeviceContext();
+	SwapChainPtr CreateSwapChain(HWND hwnd, UINT width, UINT height);
+	VertexBufferPtr CreateVertexBuffer(void* listVertices, UINT sizeVertex, UINT sizeList, void* shaderByteCode, UINT sizeByteShader);
+	IndexBufferPtr CreateIndexBuffer(void* listIndices, UINT sizeList);
+	ConstantBufferPtr CreateConstantBuffer(void* buffer, UINT sizeBuffer);
+	VertexShaderPtr CreateVertexShaders(const void* shaderByteCode, size_t byteCodeSize);
+	PixelShaderPtr CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize);
+	DeviceContextPtr GetImmediateDeviceContext();
 public:
 	bool CompileVertexShaders(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
 	bool CompilePixelShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);

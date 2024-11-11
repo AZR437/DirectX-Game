@@ -12,11 +12,11 @@
 class Cube
 {
 private:
-	VertexBuffer* vertexBuffer;
-	IndexBuffer* indexBuffer;
-	ConstantBuffer* constantBuffer;
-	VertexShader* vertexShader;
-	PixelShader* pixelShader;
+	VertexBufferPtr vertexBuffer;
+	IndexBufferPtr indexBuffer;
+	ConstantBufferPtr constantBuffer;
+	VertexShaderPtr vertexShader;
+	PixelShaderPtr pixelShader;
 
 	float deltaTime = 0;
 	float deltaPos = 0;

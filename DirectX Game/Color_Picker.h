@@ -17,6 +17,5 @@ private:
 	friend class UIManager;
 	friend class MenuBar;
 	bool isActive;
-	bool open;
 	float colors[4] = {1,1,1,1};
 };

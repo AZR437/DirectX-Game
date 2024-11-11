@@ -40,7 +40,7 @@ bool RenderSystem::Init()
 		return false;
 	}
 
-	immDeviceContext = new DeviceContext(immContext, this);
+	immDeviceContext = std::make_shared<DeviceContext>(immContext, this);
 
 	this->d3dDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)&this->dxgiDevice);
 	this->dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&this->dxgiAdapter);
@@ -62,12 +62,12 @@ bool RenderSystem::Release()
 RenderSystem::~RenderSystem()
 {
 }
-SwapChain* RenderSystem::CreateSwapChain(HWND hwnd, UINT width, UINT height)
+SwapChainPtr RenderSystem::CreateSwapChain(HWND hwnd, UINT width, UINT height)
 {
-	SwapChain* swapChain = nullptr;
+	SwapChainPtr swapChain = nullptr;
 	try
 	{
-		swapChain = new SwapChain(this, hwnd, width, height);
+		swapChain = std::make_shared<SwapChain>(this, hwnd, width, height);
 	}
 	catch(...)
 	{
@@ -77,12 +77,12 @@ SwapChain* RenderSystem::CreateSwapChain(HWND hwnd, UINT width, UINT height)
 }
 
 
-VertexBuffer* RenderSystem::CreateVertexBuffer(void* listVertices, UINT sizeVertex, UINT sizeList, void* shaderByteCode, UINT sizeByteShader)
+VertexBufferPtr RenderSystem::CreateVertexBuffer(void* listVertices, UINT sizeVertex, UINT sizeList, void* shaderByteCode, UINT sizeByteShader)
 {
-	VertexBuffer* vertBuffer = nullptr;
+	VertexBufferPtr vertBuffer = nullptr;
 	try
 	{
-		vertBuffer = new VertexBuffer(this, listVertices, sizeVertex, sizeList, shaderByteCode, sizeByteShader);
+		vertBuffer =  std::make_shared<VertexBuffer>(this, listVertices, sizeVertex, sizeList, shaderByteCode, sizeByteShader);
 	}
 	catch (...)
 	{
@@ -91,12 +91,12 @@ VertexBuffer* RenderSystem::CreateVertexBuffer(void* listVertices, UINT sizeVert
 	return vertBuffer;
 }
 
-IndexBuffer* RenderSystem::CreateIndexBuffer(void* listIndices, UINT sizeList)
+IndexBufferPtr RenderSystem::CreateIndexBuffer(void* listIndices, UINT sizeList)
 {
-	IndexBuffer* indexBuffer = nullptr;
+	IndexBufferPtr indexBuffer = nullptr;
 	try
 	{
-		indexBuffer = new IndexBuffer(this, listIndices, sizeList);
+		indexBuffer = std::make_shared<IndexBuffer>(this, listIndices, sizeList);
 	}
 	catch (...)
 	{
@@ -105,12 +105,12 @@ IndexBuffer* RenderSystem::CreateIndexBuffer(void* listIndices, UINT sizeList)
 	return  indexBuffer;
 }
 
-ConstantBuffer* RenderSystem::CreateConstantBuffer(void* buffer, UINT sizeBuffer)
+ConstantBufferPtr RenderSystem::CreateConstantBuffer(void* buffer, UINT sizeBuffer)
 {
-	ConstantBuffer* constBuffer = nullptr;
+	ConstantBufferPtr constBuffer = nullptr;
 	try
 	{
-		constBuffer = new ConstantBuffer(this, buffer, sizeBuffer);
+		constBuffer = std::make_shared<ConstantBuffer>(this, buffer, sizeBuffer);
 	}
 	catch (...)
 	{
@@ -119,12 +119,12 @@ ConstantBuffer* RenderSystem::CreateConstantBuffer(void* buffer, UINT sizeBuffer
 	return constBuffer;
 }
 
-VertexShader* RenderSystem::CreateVertexShaders(const void* shaderByteCode, size_t byteCodeSize)
+VertexShaderPtr RenderSystem::CreateVertexShaders(const void* shaderByteCode, size_t byteCodeSize)
 {
-	VertexShader* vertShader = nullptr;
+	VertexShaderPtr vertShader = nullptr;
 	try
 	{
-		vertShader = new VertexShader(this, shaderByteCode, byteCodeSize);
+		vertShader = std::make_shared<VertexShader>(this, shaderByteCode, byteCodeSize);
 	}
 	catch (...)
 	{
@@ -133,12 +133,12 @@ VertexShader* RenderSystem::CreateVertexShaders(const void* shaderByteCode, size
 	return vertShader;
 }
 
-PixelShader* RenderSystem::CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize)
+PixelShaderPtr RenderSystem::CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize)
 {
-	PixelShader* pixShader = nullptr;
+	PixelShaderPtr pixShader = nullptr;
 	try
 	{
-		pixShader = new PixelShader(this, shaderByteCode, byteCodeSize);
+		pixShader = std::make_shared<PixelShader>(this, shaderByteCode, byteCodeSize);
 	}
 	catch (...)
 	{
@@ -146,7 +146,7 @@ PixelShader* RenderSystem::CreatePixelShader(const void* shaderByteCode, size_t 
 	}
 	return pixShader;
 }
-DeviceContext* RenderSystem::GetImmediateDeviceContext()
+DeviceContextPtr RenderSystem::GetImmediateDeviceContext()
 {
 	return this->immDeviceContext;
 }
