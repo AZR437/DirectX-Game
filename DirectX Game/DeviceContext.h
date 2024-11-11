@@ -6,19 +6,13 @@
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
-
-
-class SwapChain;
-class VertexBuffer;
-class IndexBuffer;
-class ConstantBuffer;
-class VertexShader;
-class PixelShader;
+#include "Prerequisite.h"
+#include "exception"
 
 class DeviceContext
 {
 	public:
-		DeviceContext(ID3D11DeviceContext* deviceContext);
+		DeviceContext(ID3D11DeviceContext* deviceContext, RenderSystem* renderSystem);
 		void ClearRenderTargetColor(SwapChain* swapChain, float r, float g, float b, float a);
 		void SetVertexBuffer(VertexBuffer* vertexBuffer);
 		void SetIndexBuffer(IndexBuffer* indexBuffer);
@@ -38,11 +32,10 @@ class DeviceContext
 		void SetPixelShader(PixelShader* pixelShader);
 
 		ID3D11DeviceContext* GetDeviceContext();
-
-		bool Release();
 		~DeviceContext();
 	private:
 		ID3D11DeviceContext* deviceContext;
+		RenderSystem* renderSystem = nullptr;
 	private:
 		friend class ConstantBuffer;
 };

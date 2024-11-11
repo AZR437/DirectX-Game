@@ -1,4 +1,5 @@
 #include "AppWindow.h"
+#include "Credits_UI.h"
 
 int main()
 {

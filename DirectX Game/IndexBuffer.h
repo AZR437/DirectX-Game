@@ -1,14 +1,14 @@
 #pragma once
-#include "GraphicsEngine.h"
+#include "RenderSystem.h"
 #include "iostream"
-class DeviceContext;
+#include "Prerequisite.h"
+#include "exception"
 
 class IndexBuffer
 {
 public:
-	IndexBuffer();
-	bool Load(void* listIndices, UINT sizeList);
-	bool Release();
+	IndexBuffer(RenderSystem* renderSystem, void* listIndices, UINT sizeList);
+
 	~IndexBuffer();
 public:
 	UINT GetIndexSizelist();
@@ -16,6 +16,7 @@ private:
 	UINT sizeList;
 private:
 	ID3D11Buffer* buffer;
+	RenderSystem* renderSystem = nullptr;
 private:
 	friend class DeviceContext;
 };

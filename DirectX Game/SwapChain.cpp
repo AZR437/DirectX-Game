@@ -1,12 +1,8 @@
 #include "SwapChain.h"
-SwapChain::SwapChain()
+SwapChain::SwapChain(RenderSystem* renderSystem, HWND hwnd, UINT width, UINT height) :depthView(0), renderTargetView(0), swapChain(0), renderSystem(renderSystem)
 {
+	ID3D11Device* device = renderSystem->d3dDevice;
 
-}
-bool SwapChain::Init(HWND hwnd, UINT width, UINT height)
-{
-	ID3D11Device* device = GraphicsEngine::GetInstance()->d3dDevice;
-	
 	DXGI_SWAP_CHAIN_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
 	desc.BufferCount = 1;
@@ -22,20 +18,20 @@ bool SwapChain::Init(HWND hwnd, UINT width, UINT height)
 	desc.Windowed = TRUE;
 
 
-	HRESULT hRes = GraphicsEngine::GetInstance()->dxgiFactory->CreateSwapChain(device, &desc, &this->swapChain);
+	HRESULT hRes = renderSystem->dxgiFactory->CreateSwapChain(device, &desc, &this->swapChain);
 
 	if (FAILED(hRes))
 	{
-		return false;
+		throw std::exception("Swap chain was not created successfully.");
 	}
 
 	ID3D11Texture2D* buffer = NULL;
-	hRes = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&buffer);
+	hRes = this->swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&buffer);
 
 
 	if (FAILED(hRes))
 	{
-		return false;
+		throw std::exception("Swap chain was not created successfully.");
 	}
 
 	hRes = device->CreateRenderTargetView(buffer, NULL, &renderTargetView);
@@ -43,7 +39,7 @@ bool SwapChain::Init(HWND hwnd, UINT width, UINT height)
 
 	if (FAILED(hRes))
 	{
-		return false;
+		throw std::exception("Render target view was not created successfully.");
 	}
 	D3D11_TEXTURE2D_DESC textureDesc = {};
 	textureDesc.Width = width;
@@ -57,33 +53,30 @@ bool SwapChain::Init(HWND hwnd, UINT width, UINT height)
 	textureDesc.MiscFlags = 0;
 	textureDesc.ArraySize = 1;
 	textureDesc.CPUAccessFlags = 0;
-	
+
 	hRes = device->CreateTexture2D(&textureDesc, NULL, &buffer);
 	if (FAILED(hRes))
 	{
-		return false;
+		throw std::exception("Texture 2D was not created successfully.");
 	}
 	hRes = device->CreateDepthStencilView(buffer, NULL, &this->depthView);
 	if (FAILED(hRes))
 	{
-		return false;
+		throw std::exception("Stencil View was not created successfully.");
 	}
 	buffer->Release();
-	return true;
 }
+
 bool SwapChain::Present(bool vSync)
 {
 	this->swapChain->Present(vSync, NULL);
 
 	return true;
 }
-bool SwapChain::Release()
-{
-	this->swapChain->Release();
-	delete this;
-	return true;
-}
+
 SwapChain::~SwapChain()
 {
-
+	this->swapChain->Release();
+	this->renderTargetView->Release();
+	this->depthView->Release();
 }

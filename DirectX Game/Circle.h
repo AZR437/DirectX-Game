@@ -1,4 +1,5 @@
 #pragma once
+#include "GraphicsEngine.h"
 #include "VertexBuffer.h"
 #include "ConstantBuffer.h"
 #include "VertexShader.h"

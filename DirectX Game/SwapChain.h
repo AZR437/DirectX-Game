@@ -1,23 +1,22 @@
 #pragma once
-#include "GraphicsEngine.h"
+#include "RenderSystem.h"
 #include "d3d11.h"
-
-class DeviceContext;
+#include "Prerequisite.h"
+#include "exception"
 
 class SwapChain
 {
 	public:
-		SwapChain();
-		bool Init(HWND hwnd, UINT width, UINT height);
+		SwapChain(RenderSystem* renderSystem, HWND hwnd, UINT width, UINT height);
 
 		bool Present(bool vSync);
-
-		bool Release();
+;
 		~SwapChain();
 	private:
 		IDXGISwapChain* swapChain;
 		ID3D11DepthStencilView* depthView;
 		ID3D11RenderTargetView* renderTargetView;
+		RenderSystem* renderSystem = nullptr;
 	private:
 		friend class DeviceContext;
 };

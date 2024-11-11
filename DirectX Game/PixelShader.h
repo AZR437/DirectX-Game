@@ -1,25 +1,24 @@
 #pragma once
 
 #include "d3d11.h"
-#include "GraphicsEngine.h"
+#include "RenderSystem.h"
 #include "DeviceContext.h"
-
-class GraphicsEngine;
-class DeviceContext;
+#include "RenderSystem.h"
+#include "Prerequisite.h"
+#include "exception"
 
 class PixelShader
 {
-	private:
-		bool Init(const void* shaderByteCode, size_t byteCodeSize);
+
 	public:
-		PixelShader();
-		void Release();
+		PixelShader(RenderSystem* renderSystem,const void* shaderByteCode, size_t byteCodeSize);
 		~PixelShader();
 	private:
 		ID3D11PixelShader* pixelShader;
+		RenderSystem* renderSystem = nullptr;
 	private:
-		friend class GraphicsEngine;
 		friend class DeviceContext;
+		friend class RenderSystem;
 
 
 };

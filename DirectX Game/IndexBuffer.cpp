@@ -1,10 +1,6 @@
 #include "IndexBuffer.h"
 
-IndexBuffer::IndexBuffer()
-{
-}
-
-bool IndexBuffer::Load(void* listIndices, UINT sizeList)
+IndexBuffer::IndexBuffer(RenderSystem* renderSystem, void* listIndices, UINT sizeList):buffer(0), renderSystem(renderSystem)
 {
 	if (this->buffer)
 	{
@@ -23,23 +19,16 @@ bool IndexBuffer::Load(void* listIndices, UINT sizeList)
 
 	this->sizeList = sizeList;
 
-	if (FAILED(GraphicsEngine::GetInstance()->d3dDevice->CreateBuffer(&buffDesc, &initData, &this->buffer)))
+	if (FAILED(renderSystem->d3dDevice->CreateBuffer(&buffDesc, &initData, &this->buffer)))
 	{
-		return false;
+		throw std::exception("Index buffer not created successfully.");
 	}
-
-	return true;
 }
 
-bool IndexBuffer::Release()
-{
-	this->buffer->Release();
-	delete this;
-	return true;
-}
 
 IndexBuffer::~IndexBuffer()
 {
+	this->buffer->Release();
 }
 
 UINT IndexBuffer::GetIndexSizelist()

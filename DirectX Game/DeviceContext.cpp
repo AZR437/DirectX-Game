@@ -1,7 +1,8 @@
 #include "DeviceContext.h"
-DeviceContext::DeviceContext(ID3D11DeviceContext* deviceContext)
+DeviceContext::DeviceContext(ID3D11DeviceContext* deviceContext, RenderSystem* renderSystem)
 {
 	this->deviceContext = deviceContext;
+	this->renderSystem = renderSystem;
 }
 void DeviceContext::ClearRenderTargetColor(SwapChain* swapChain, float r, float g, float b, float a)
 {
@@ -9,6 +10,7 @@ void DeviceContext::ClearRenderTargetColor(SwapChain* swapChain, float r, float 
 	this->deviceContext->ClearRenderTargetView(swapChain->renderTargetView ,clearColor);
 	this->deviceContext->ClearDepthStencilView(swapChain->depthView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 	this->deviceContext->OMSetRenderTargets(1,&swapChain->renderTargetView, swapChain->depthView);
+	//std::cout << "Bazinga" << std::endl;
 	
 }
 void DeviceContext::SetVertexBuffer(VertexBuffer* vertexBuffer)
@@ -72,13 +74,7 @@ ID3D11DeviceContext* DeviceContext::GetDeviceContext()
 {
 	return this->deviceContext;
 }
-bool DeviceContext::Release()
-{
-	this->deviceContext->Release();
-	delete this;
-	return true;
-}
 DeviceContext::~DeviceContext()
 {
-
+	this->deviceContext->Release();
 }

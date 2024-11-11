@@ -1,24 +1,15 @@
 #include "VertexShader.h"
 
-bool VertexShader::Init(const void* shaderByteCode, size_t byteCodeSize)
+
+VertexShader::VertexShader(RenderSystem* renderSystem, const void* shaderByteCode, size_t byteCodeSize):vertexShader(0), renderSystem(renderSystem)
 {
-	if (!SUCCEEDED(GraphicsEngine::GetInstance()->d3dDevice->CreateVertexShader(shaderByteCode, byteCodeSize, nullptr, &this->vertexShader)))
+	if (!SUCCEEDED(renderSystem->d3dDevice->CreateVertexShader(shaderByteCode, byteCodeSize, nullptr, &this->vertexShader)))
 	{
-		return false;
+		throw std::exception("Vertex shader was not created successfully.");
 	}
-	return true;
-}
-
-VertexShader::VertexShader()
-{
-}
-
-void VertexShader::Release()
-{
-	this->vertexShader->Release();
-	delete this;
 }
 
 VertexShader::~VertexShader()
 {
+	this->vertexShader->Release();
 }

@@ -2,7 +2,7 @@
 
 AppWindow* AppWindow::sharedInstance = NULL;
 
-AppWindow::AppWindow()
+AppWindow::AppWindow() :primitiveLoader(0), swapChain(0)
 {
 	
 }
@@ -76,18 +76,18 @@ void AppWindow::OnCreate()
 	InputSystem::Initialize();
 	CameraManager::Initialize();
 	Window::OnCreate();
-	GraphicsEngine* graphics = GraphicsEngine::GetInstance();;
-	InputSystem* input = InputSystem::GetInstance();
-	graphics->InitDX();
-	input->AddListener(this);
-	this->swapChain = graphics->CreateSwapChain();
 
+	GraphicsEngine* graphics = GraphicsEngine::GetInstance();
+	InputSystem* input = InputSystem::GetInstance();
+	graphics->Initialize();
+	input->AddListener(this);
 	RECT rc = this->GetClientWindowRect();
 	UINT width = rc.right - rc.left;
 	UINT height = rc.bottom - rc.top;
+	this->swapChain = graphics->GetRenderSystem()->CreateSwapChain(this->hwnd, width, height);
 
-	this->swapChain->Init(this->hwnd, width, height);
 
+	UIManager::Initialize(this->hwnd);
 	CameraManager::GetInstance()->CreateCamera();
 	CameraManager::GetInstance()->GetSelectedCamera()->SetWidthAndHeight(width, height);
 	//CameraManager::GetInstance()->GetSelectedCamera()->SetOrtho(width / 300.0f, height / 300.0f, -4.0f, 4.0f);
@@ -132,11 +132,9 @@ void AppWindow::OnCreate()
 		{Vector3D(5.f,5.f,5.f), Vector3D(0,0,0), Vector3D(0.f,1.f,0)}
 	};
 	this->primitiveLoader->LoadPrimitives(CUBE,1,cubeTransformList);
-	this->primitiveLoader->LoadPrimitives(QUAD, 1, quadTransformList);
+	//this->primitiveLoader->LoadPrimitives(QUAD, 1, quadTransformList);
 	//this->primitiveloader->loadprimitives(circle, 1,circletransformlist);
-	ImGui::CreateContext();
-	ImGui_ImplWin32_Init(this->hwnd);
-	ImGui_ImplDX11_Init(GraphicsEngine::GetInstance()->GetDirectXDevice(), GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->GetDeviceContext());
+
 }
 void AppWindow::OnUpdate()
 {
@@ -144,36 +142,25 @@ void AppWindow::OnUpdate()
 	InputSystem::GetInstance()->Update();
 	CameraManager::GetInstance()->Update();
 	//Clear Render Target
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->ClearRenderTargetColor(this->swapChain,0.25,0.75f,0.85f,1);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->ClearRenderTargetColor(this->swapChain, 0.25, 0.75f, 0.85f, 1);
 	// Set viewport for render target to use to draw
 	RECT rc = this->GetClientWindowRect();
 	UINT width = rc.right - rc.left;
 	UINT height = rc.bottom - rc.top;
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetViewPortSize(width, height);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->SetViewPortSize(width, height);
 
 
 
 	this->primitiveLoader->DrawPrimitives();
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	//ImGui::ShowDemoWindow();
-	ImGui::Begin("About");
-	ImGui::SetWindowPos(ImVec2(100, 50));
-	ImGui::SetWindowSize(ImVec2(width - 500, 100));
-	ImGui::TextColored(ImVec4(1, 1, 0, 1), "DirectX 11 Game Engine");
-	ImGui::TextColored(ImVec4(1,0,0,1), "Developed by: Carlos Miguel M. Arquillo");
-	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Version Number: 0.45");
-	ImGui::End();
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	
+	UIManager::GetInstance()->DrawAllUI();
 	this->swapChain->Present(true);
 	
 	
 }
 void AppWindow::OnDestroy()
 {
-	this->swapChain->Release();
+	/*this->swapChain->Release();*/
 	this->primitiveLoader->ReleasePrimitives();
 	GraphicsEngine::GetInstance()->Destroy();
 	delete sharedInstance;

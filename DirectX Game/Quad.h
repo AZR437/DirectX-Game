@@ -6,6 +6,7 @@
 #include "Constants.h"
 #include "EngineTime.h"
 #include "CameraManager.h"
+#include "GraphicsEngine.h"
 
 class Quad
 {

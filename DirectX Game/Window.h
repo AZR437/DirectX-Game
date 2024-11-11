@@ -1,7 +1,8 @@
 #pragma once
 #include "Windows.h"
 #include "EngineTime.h"
-
+#include "IMGUI/imgui.h"
+#include "UIManager.h"
 class Window
 {
 	public:

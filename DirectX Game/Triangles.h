@@ -5,7 +5,7 @@
 #include "PixelShader.h"
 #include "Constants.h"
 #include "EngineTime.h"
-
+#include "GraphicsEngine.h"
 class Triangles
 {
 private:

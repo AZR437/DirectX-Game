@@ -25,7 +25,6 @@ class AppWindow: public Window, public InputListener
 	private:
 		SwapChain* swapChain;
 		PrimitiveLoader* primitiveLoader;
-		bool check1;
 
 	private:
 		AppWindow();

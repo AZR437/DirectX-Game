@@ -2,8 +2,7 @@
 #include "iostream"
 #include "chrono"
 #include "ctime"
-
-class Window;
+#include "Prerequisite.h"
 class EngineTime
 {
 private:

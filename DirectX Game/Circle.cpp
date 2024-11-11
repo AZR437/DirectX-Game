@@ -77,7 +77,7 @@ void Circle::Load()
 		
 	}
 	UINT listSize = ARRAYSIZE(list);
-	this->vertexBuffer = GraphicsEngine::GetInstance()->CreateVertexBuffer();
+	
 
 
 
@@ -85,25 +85,24 @@ void Circle::Load()
 	void* shaderByteCode = nullptr;
 	size_t shaderSize = 0;
 
-	GraphicsEngine::GetInstance()->CompileVertexShaders(L"VertexShader.hlsl", "vsmain", &shaderByteCode, &shaderSize);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->CompileVertexShaders(L"VertexShader.hlsl", "vsmain", &shaderByteCode, &shaderSize);
 
-	this->vertexShader = GraphicsEngine::GetInstance()->CreateVertexShaders(shaderByteCode, shaderSize);
+	this->vertexShader = GraphicsEngine::GetInstance()->GetRenderSystem()->CreateVertexShaders(shaderByteCode, shaderSize);
 
-	this->vertexBuffer->Load(list, sizeof(vertex), listSize, shaderByteCode, shaderSize);
+	this->vertexBuffer = GraphicsEngine::GetInstance()->GetRenderSystem()->CreateVertexBuffer(list, sizeof(vertex), listSize, shaderByteCode, shaderSize);
 
-	GraphicsEngine::GetInstance()->ReleaseCompiledShader();
+	GraphicsEngine::GetInstance()->GetRenderSystem()->ReleaseCompiledShader();
 
-	GraphicsEngine::GetInstance()->CompilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &shaderSize);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->CompilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &shaderSize);
 
-	this->pixelShader = GraphicsEngine::GetInstance()->CreatePixelShader(shaderByteCode, shaderSize);
+	this->pixelShader = GraphicsEngine::GetInstance()->GetRenderSystem()->CreatePixelShader(shaderByteCode, shaderSize);
 
-	GraphicsEngine::GetInstance()->ReleaseCompiledShader();
+	GraphicsEngine::GetInstance()->GetRenderSystem()->ReleaseCompiledShader();
 
 	constant cc;
 	cc.angle = 0;
 
-	this->constantBuffer = GraphicsEngine::GetInstance()->CreateConstantBuffer();
-	this->constantBuffer->Load(&cc, sizeof(constant));
+	this->constantBuffer = GraphicsEngine::GetInstance()->GetRenderSystem()->CreateConstantBuffer(&cc, sizeof(constant));
 }
 
 
@@ -115,24 +114,24 @@ void Circle::Draw()
 
 	this->updatePosition();
 
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetConstantBuffer(this->vertexShader, this->constantBuffer);
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetConstantBuffer(this->pixelShader, this->constantBuffer);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->SetConstantBuffer(this->vertexShader, this->constantBuffer);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->SetConstantBuffer(this->pixelShader, this->constantBuffer);
 
 	//set default shader in graphics pipeline
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetVertexShader(this->vertexShader);
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetPixelShader(this->pixelShader);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->SetVertexShader(this->vertexShader);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->SetPixelShader(this->pixelShader);
 	//Set vertices
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->SetVertexBuffer(this->vertexBuffer);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->SetVertexBuffer(this->vertexBuffer);
 	// Draw
-	GraphicsEngine::GetInstance()->GetImmediateDeviceContext()->DrawTriangleStrip(this->vertexBuffer->GetVertexSizelist(), 0);
+	GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext()->DrawTriangleStrip(this->vertexBuffer->GetVertexSizelist(), 0);
 }
 
 void Circle::Release()
 {
-	this->vertexBuffer->Release();
-	this->vertexShader->Release();
-	this->pixelShader->Release();
-	this->constantBuffer->Release();
+	//this->vertexBuffer->Release();
+	//this->vertexShader->Release();
+	//this->pixelShader->Release();
+	//this->constantBuffer->Release();
 }
 
 Circle::~Circle()
@@ -174,5 +173,5 @@ void Circle::updatePosition()
 	cc.view = CameraManager::GetInstance()->GetSelectedCamera()->GetView();
 	cc.projection = CameraManager::GetInstance()->GetSelectedCamera()->GetProj();;
 
-	this->constantBuffer->Update(GraphicsEngine::GetInstance()->GetImmediateDeviceContext(), &cc);
+	this->constantBuffer->Update(GraphicsEngine::GetInstance()->GetRenderSystem()->GetImmediateDeviceContext(), &cc);
 }
